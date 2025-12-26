@@ -1,0 +1,3 @@
+include:
+  - path: packages/middleware/compose.yaml
+

@@ -1,0 +1,7 @@
+res://assets/models/world/Material.003.material
+res://assets/models/world/Material.001.material
+res://assets/models/world/Material.002.material
+res://assets/models/world/world.tscn
+res://scenes/main.tscn
+res://scenes/main.gd
+res://scripts/client.gd

@@ -1,0 +1,14 @@
+[tools."aqua:godotengine/godot"]
+version = "4.5"
+
+# -----------------------------------------------------------------------------
+[tasks."setup"]
+description = "Setup project workspace"
+run = "mise i"
+
+# -----------------------------------------------------------------------------
+[tasks."start:editor"]
+description = "Run engine editor"
+run = [
+ "mise exec -- godot --editor"
+]

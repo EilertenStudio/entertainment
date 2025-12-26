@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://cjdqy37jfat77"]
+
+[ext_resource type="PackedScene" uid="uid://dmj7fy0hx5oal" path="res://assets/models/world/world.glb" id="1_udwrd"]
+
+[node name="WorldScene" instance=ExtResource("1_udwrd")]
+
+[node name="Sun" parent="Assets/globals" index="0"]
+light_energy = 1.0
+
+[node name="room-1-camera_isometric" parent="Assets/rooms/rooms-1/room-1-compose" index="0"]
+current = true

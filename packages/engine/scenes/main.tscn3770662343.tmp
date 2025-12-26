@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://cfkfxl8h7lxnx"]
+
+[ext_resource type="Script" uid="uid://d27x87ltwinwb" path="res://scenes/main.gd" id="1_o5qli"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_sgp6g"]
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_o5qli")
+
+[node name="Scene3D" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="Scene3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Scene3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.1251585)
+mesh = SubResource("BoxMesh_sgp6g")
+
+[node name="ClientController" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ClientConnectButton" type="Button" parent="ClientController"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 56.0
+offset_right = 136.0
+offset_bottom = 88.0
+text = "CONNECT"
+
+[node name="ClientInfoLabel" type="Label" parent="ClientController"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 16.0
+offset_right = 136.0
+offset_bottom = 40.0
+text = "Client disconnect"

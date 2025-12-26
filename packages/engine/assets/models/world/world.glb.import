@@ -1,0 +1,82 @@
+[remap]
+
+importer="scene"
+importer_version=1
+type="PackedScene"
+uid="uid://dmj7fy0hx5oal"
+path="res://.godot/imported/world.glb-084ecec271fe3f00db993478d38ed904.scn"
+
+[deps]
+
+source_file="res://assets/models/world/world.glb"
+dest_files=["res://.godot/imported/world.glb-084ecec271fe3f00db993478d38ed904.scn"]
+
+[params]
+
+nodes/root_type="Node3D"
+nodes/root_name="WorldScene"
+nodes/root_script=null
+nodes/apply_root_scale=true
+nodes/root_scale=1.0
+nodes/import_as_skeleton_bones=false
+nodes/use_name_suffixes=true
+nodes/use_node_type_suffixes=true
+meshes/ensure_tangents=true
+meshes/generate_lods=true
+meshes/create_shadow_meshes=true
+meshes/light_baking=1
+meshes/lightmap_texel_size=0.2
+meshes/force_disable_compression=false
+skins/use_named_skins=true
+animation/import=true
+animation/fps=30
+animation/trimming=false
+animation/remove_immutable_tracks=true
+animation/import_rest_as_RESET=false
+import_script/path=""
+materials/extract=2
+materials/extract_format=2
+materials/extract_path=""
+_subresources={
+"materials": {
+"@MATERIAL:0": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://assets/models/world/@MATERIAL_0.material",
+"use_external/path": "res://assets/models/world/@MATERIAL_0.material"
+},
+"Material.001": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://assets/models/world/Material.001.material",
+"use_external/path": "uid://coxeagwaypr0f"
+},
+"Material.002": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://assets/models/world/Material.002.material",
+"use_external/path": "uid://cpsawxxc87ooc"
+},
+"Material.003": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://assets/models/world/Material.003.material",
+"use_external/path": "uid://dpqky4g1f4sj2"
+}
+},
+"nodes": {
+"PATH:Assets/globals/Sun": {
+"node/node_type": "DirectionalLight3D"
+},
+"PATH:Assets/rooms/rooms-1/rooms-1-spawns/room-1-spawn_001": {
+"node/node_type": "Marker3D"
+},
+"PATH:Assets/rooms/rooms-1/rooms-1-spawns/room-1-spawn_002": {
+"node/node_type": "Marker3D"
+},
+"PATH:Assets/rooms/rooms-1/rooms-1-spawns/room-1-spawn_003": {
+"node/node_type": "Marker3D"
+},
+"PATH:Assets/rooms/rooms-1/rooms-1-spawns/room-1-spawn_004": {
+"node/node_type": "Marker3D"
+}
+}
+}
+gltf/naming_version=2
+gltf/embedded_image_handling=0

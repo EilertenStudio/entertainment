@@ -1,0 +1,62 @@
+[gd_scene load_steps=6 format=3 uid="uid://cfkfxl8h7lxnx"]
+
+[ext_resource type="Script" uid="uid://d27x87ltwinwb" path="res://scenes/main.gd" id="1_o5qli"]
+[ext_resource type="PackedScene" uid="uid://dmj7fy0hx5oal" path="res://assets/models/world/world.glb" id="2_0wfyh"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_0wfyh"]
+sky_top_color = Color(0, 0, 0, 1)
+sky_horizon_color = Color(0, 0, 0, 1)
+ground_bottom_color = Color(0, 0, 0, 1)
+ground_horizon_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Sky" id="Sky_sugp2"]
+sky_material = SubResource("ProceduralSkyMaterial_0wfyh")
+
+[sub_resource type="Environment" id="Environment_jyhfs"]
+sky = SubResource("Sky_sugp2")
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_o5qli")
+
+[node name="ClientController" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ClientConnectButton" type="Button" parent="ClientController"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 56.0
+offset_right = 136.0
+offset_bottom = 88.0
+text = "CONNECT"
+
+[node name="ClientInfoLabel" type="Label" parent="ClientController"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 16.0
+offset_right = 136.0
+offset_bottom = 40.0
+text = "Client disconnect"
+
+[node name="Scene3D" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Scene3D"]
+environment = SubResource("Environment_jyhfs")
+
+[node name="WorldScene" parent="Scene3D" instance=ExtResource("2_0wfyh")]
+
+[node name="Sun" parent="Scene3D/WorldScene/assets/globals" index="0"]
+light_energy = 1.381
+
+[node name="rooms" parent="Scene3D/WorldScene/assets" index="1"]
+visible = false
+
+[node name="room-1-camera_isometric" parent="Scene3D/WorldScene/assets/rooms/rooms-1/room-1-compose" index="0"]
+current = true
+
+[editable path="Scene3D/WorldScene"]
