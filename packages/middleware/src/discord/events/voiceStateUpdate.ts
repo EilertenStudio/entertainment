@@ -1,7 +1,7 @@
 import {type Client, Events, type VoiceState} from 'discord.js';
 import {PacketType, type VoiceEventData} from "../../types.js";
-import * as server from "../../server.js";
-import type {DiscordClient} from "../../discord.js";
+import * as server from "../../server/index.js";
+import type {DiscordClient} from "../index.js"
 
 export default (client: DiscordClient) => {
 

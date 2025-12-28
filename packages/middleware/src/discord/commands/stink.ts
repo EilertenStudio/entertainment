@@ -8,7 +8,7 @@ import {
   MessageFlagsBitField,
   SlashCommandBuilder
 } from 'discord.js';
-import {type DiscordCommand} from '../../discord.js'
+import {type DiscordCommand} from '../index.js'
 
 export default {
   data: new SlashCommandBuilder()
@@ -19,7 +19,9 @@ export default {
       .setDescription("The entity to stink")
       .setRequired(true)
     ),
-  execute: async (interaction: ChatInputCommandInteraction) => {
+  execute: async (interaction: Interaction) => {
+    if(!interaction.isChatInputCommand()) return;
+
     const user = interaction.options.getUser("entity")
 
     const reply = new ButtonBuilder()

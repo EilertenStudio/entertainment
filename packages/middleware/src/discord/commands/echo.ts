@@ -5,7 +5,7 @@ import {
   MessageFlagsBitField,
   SlashCommandBuilder
 } from 'discord.js';
-import {type DiscordCommand} from '../../discord.js'
+import {type DiscordCommand} from '../index.js'
 
 export default {
   data: new SlashCommandBuilder()
@@ -17,7 +17,9 @@ export default {
       .setRequired(true)
       .setMinLength(1)
     ),
-  execute: async (interaction: ChatInputCommandInteraction) => {
+  execute: async (interaction: Interaction) => {
+    if(!interaction.isChatInputCommand()) return;
+
     await interaction.reply({
       content: interaction.options.get('message')!.value as string,
       flags: MessageFlagsBitField.Flags.Ephemeral,

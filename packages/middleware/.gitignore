@@ -1,5 +1,6 @@
 ### Project files
 .env.credentials
+.storage
 
 ### Node template
 # Logs

@@ -1,22 +1,22 @@
 import dotenv from 'dotenv';
 import {Client, Events, GatewayIntentBits, VoiceState} from "discord.js";
 import {WebSocket, WebSocketServer} from 'ws';
-import {type GodotPacket, PacketType, type VoiceEventData} from './types.js';
+import {type GodotPacket, PacketType, type VoiceEventData} from '../types.js';
 
 dotenv.config();
 
 
 dotenv.config();
 
-let server : WebSocketServer;
+let index : WebSocketServer;
 let serverClient: WebSocket | null;
 
 export function start() {
-  server = new WebSocketServer({
-    port: Number(process.env.APPLICATION_PORT) || 8080
+  index = new WebSocketServer({
+    port: Number(process.env.SERVER_PORT) || 8080
   });
 
-  server.on('connection', (ws: WebSocket) => {
+  index.on('connection', (ws: WebSocket) => {
     console.log('[server]', '[connection]', 'Client connected');
     serverClient = ws;
 

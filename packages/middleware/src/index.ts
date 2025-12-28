@@ -1,6 +1,6 @@
-import * as configuration from './configuration.js';
-import * as server from './server.js';
-import * as discord from './discord.js';
+import * as configuration from './configuration/index.js';
+import * as server from './server/index.js';
+import * as discord from './discord/index.js';
 
 configuration.loadSettings();
 configuration.loadCredentials();

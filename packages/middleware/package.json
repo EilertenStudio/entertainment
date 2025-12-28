@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "tsc",
-    "publish-discord-commands": "tsx src/discord/index.ts",
+    "publish-discord-commands": "tsx src/discord/publish.ts",
     "start": "node dist/index.js",
     "dev": "nodemon --exec tsx src/index.ts"
   },
@@ -22,12 +22,14 @@
   "dependencies": {
     "discord.js": "^14.14",
     "dotenv": "^16.4",
-    "ws": "^8.16",
-    "smol-toml": "^1.6"
+    "json2md": "^2.0",
+    "smol-toml": "^1.6",
+    "ws": "^8.16"
   },
   "devDependencies": {
     "@types/node": "^25.0",
     "@types/ws": "^8.18",
+    "@types/json2md": "^1.5",
     "nodemon": "^3.1",
     "ts-node": "^10.9",
     "tsx": "^4.21",
