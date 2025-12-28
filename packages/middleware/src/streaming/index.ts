@@ -1,9 +1,9 @@
 import {resolveConfigurationFile} from "../configuration/index.js";
 
-export class StreamingConfiguration {
+export class StreamingContext {
 
   config = resolveConfigurationFile("streaming", "config.toml")
 
 }
 
-export const StreamingManager = new StreamingConfiguration();
+export const StreamingManager = new StreamingContext();

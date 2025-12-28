@@ -2,6 +2,7 @@ import {type Client, Events, type VoiceState} from 'discord.js';
 import {PacketType, type VoiceEventData} from "../../types.js";
 import * as server from "../../server/index.js";
 import type {DiscordClient} from "../index.js"
+import {ServerManager} from "../../server/index.js";
 
 export default (client: DiscordClient) => {
 
@@ -22,8 +23,8 @@ export default (client: DiscordClient) => {
       channelId: (newState.channelId || oldState.channelId) as string
     };
 
-    console.log('[discord]', '[event]', eventData);
-    server.sendData(PacketType.VOICE_STATE_UPDATE, eventData);
+    console.log('[discord.event]', eventData);
+    ServerManager.send(PacketType.VOICE_STATE_UPDATE, eventData);
   });
 
 };

@@ -25,6 +25,7 @@ export function start() {
       await client.login(process.env.DISCORD_BOT_TOKEN);
       return client;
     })
+  ;
 }
 
 async function initClient() {
@@ -67,19 +68,7 @@ async function initApplicationCommands(client: DiscordClient) {
     client.commands.set(command.data.name, command);
   }
 
-
-  await getApplicationCommands()
-
   return client;
-}
-
-export async function getApplicationCommands() {
-  const rest = new REST().setToken(process.env.DISCORD_BOT_TOKEN!);
-
-  const commands = (await rest.get(Routes.applicationCommands(process.env.DISCORD_APP_ID!)));
-
-  // console.log(typeof commands)
-  console.log(commands);
 }
 
 export async function registerApplicationCommands() {
@@ -120,4 +109,14 @@ export async function registerApplicationCommands() {
 
   await importApplicationCommandData();
   await publishApplicationCommandData();
+  await getRegisteredApplicationCommands()
+}
+
+export async function getRegisteredApplicationCommands() {
+  const rest = new REST().setToken(process.env.DISCORD_BOT_TOKEN!);
+
+  const commands = (await rest.get(Routes.applicationCommands(process.env.DISCORD_APP_ID!)));
+
+  // console.log(typeof commands)
+  console.log(commands);
 }

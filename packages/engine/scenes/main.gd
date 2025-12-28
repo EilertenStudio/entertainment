@@ -31,9 +31,12 @@ func _update_client() -> void:
 			_update_client_connect_info("Client connected at %s" % [ClientManager.socket_url])
 			_update_client_connect_button("Disconnect")
 			pass,
-		func on_closed(_code, _reason):
-			_update_client_connect_info("Client disconnect")
-			_update_client_connect_button("Connect")
+		func on_closed(code, reason, reconnect):
+			if reconnect:
+				_update_client_connect_info("Reconnecting at %s" % [ClientManager.socket_url])
+			else:
+				_update_client_connect_info("Client disconnect with (code: %s) (reason: %s)" % [code, reason])
+				_update_client_connect_button("Connect")
 			pass
 	)
 	ClientManager.update_connection_state(

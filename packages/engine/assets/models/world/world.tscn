@@ -7,5 +7,5 @@
 [node name="Sun" parent="Assets/globals" index="0"]
 light_energy = 1.0
 
-[node name="room-1-camera_isometric" parent="Assets/rooms/rooms-1/room-1-compose" index="0"]
+[node name="room-1-camera_isometric" parent="Assets/rooms/room-1/room-1-compose" index="0"]
 current = true

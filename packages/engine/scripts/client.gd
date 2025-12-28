@@ -17,7 +17,7 @@ static func set_connection_state(state: int, trace := false):
 				printerr("Set connection state failed at %s" % socket_url)
 		WebSocketPeer.STATE_CLOSED:
 			if trace: print("Set connection state to CLOSED")
-			socket.close()
+			socket.close(1000, "Closed by user")
 	pass
 
 static func check_connection_state(on_open: Callable, on_closed: Callable, trace := false):
@@ -34,7 +34,12 @@ static func check_connection_state(on_open: Callable, on_closed: Callable, trace
 			if trace: print("Connection state is CLOSED")
 			var code = socket.get_close_code()
 			var reason = socket.get_close_reason()
-			on_closed.call(code, reason)
+			var reconnect = code == -1
+			
+			on_closed.call(code, reason, reconnect)
+			
+			if reconnect:
+				set_connection_state(WebSocketPeer.STATE_OPEN, false)
 	pass
 
 static func update_connection_state(on_packet: Callable, trace := false):

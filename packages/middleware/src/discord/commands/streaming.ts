@@ -8,6 +8,8 @@ import {
 import {type DiscordCommand} from '../index.js'
 import {type StreamingRoom, StreamingRoomManager} from "../../streaming/rooms/index.js";
 import {channel} from "node:diagnostics_channel";
+import {ServerManager, ServerPacketType} from "../../server/index.js";
+import {PacketType} from "../../types.js";
 
 export default {
   typeAllowed: [
@@ -16,13 +18,26 @@ export default {
   data: new SlashCommandBuilder()
     .setName('streaming')
     .setDescription('Get access to streaming context')
-    .addSubcommandGroup(rooms => rooms
+    // ====================================================================================================
+    .addSubcommand(cmd => cmd
+      .setName("announce")
+      .setDescription("Announce a message on the stream")
+      .addStringOption(opt => opt
+        .setName("message")
+        .setDescription("The message to get announced on stream")
+        .setRequired(true)
+      )
+    )
+    // ====================================================================================================
+    .addSubcommandGroup(group => group
       .setName("rooms")
       .setDescription("Get access to streaming rooms context")
+      // --------------------------------------------------------------------------------------------------
       .addSubcommand(cmd => cmd
         .setName('view')
         .setDescription('View all currently enrolled rooms')
       )
+      // --------------------------------------------------------------------------------------------------
       .addSubcommand(cmd => cmd
         .setName('enroll')
         .setDescription('Enroll a new room in the registry')
@@ -37,6 +52,7 @@ export default {
           .setRequired(true)
         )
       )
+      // --------------------------------------------------------------------------------------------------
       .addSubcommand(cmd => cmd
         .setName('discard')
         .setDescription('Discard a room from the registry')
@@ -47,20 +63,52 @@ export default {
         )
       )
     )
+    // ====================================================================================================
   ,
   execute: async (interaction: ChatInputCommandInteraction) => {
-    const context = interaction.options.getSubcommandGroup();
+    let cmd = interaction.options.getSubcommandGroup();
 
-    switch (context) {
+    if(!cmd) {
+      cmd = interaction.options.getSubcommand();
+    }
+
+    switch (cmd) {
+      case 'announce':
+        await handleAnnounce(interaction)
+        break;
       case 'rooms':
         await handleRooms(interaction)
         break;
       default:
-        throw new Error("No context available");
+        throw new Error("No command available");
     }
   },
 } as DiscordCommand;
 
+async function handleAnnounce(interaction: ChatInputCommandInteraction) {
+  const message = interaction.options.getString("message");
+
+  await interaction.deferReply({
+    flags: MessageFlagsBitField.Flags.Ephemeral
+  });
+
+  ServerManager.send(ServerPacketType.ANNOUNCEMENT, {
+    message: message
+  })
+
+  // TODO: implement a callback to get confirmation
+
+  const embed = new EmbedBuilder()
+    .setTitle("Announce sent with succeeded")
+    .setColor(0x00FF44)
+  ;
+
+  await interaction.editReply({
+    embeds: [
+      embed
+    ]
+  });
+}
 
 async function handleRooms(interaction: ChatInputCommandInteraction) {
   const cmd = interaction.options.getSubcommand();

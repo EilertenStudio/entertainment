@@ -17,7 +17,7 @@ export interface StreamingRoomConfigurationFile {
   }
 }
 
-export class StreamingRoomConfiguration {
+export class StreamingRoomContext {
 
   config = resolveConfigurationFile("streaming", "rooms", "config.toml")
 
@@ -63,4 +63,4 @@ export class StreamingRoomConfiguration {
   }
 }
 
-export const StreamingRoomManager = new StreamingRoomConfiguration();
+export const StreamingRoomManager = new StreamingRoomContext();
