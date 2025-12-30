@@ -1,9 +1,9 @@
 import {
   ButtonStyle,
   ChatInputCommandInteraction,
-  EmbedBuilder,
+  EmbedBuilder, GuildChannel,
   MessageFlagsBitField,
-  SlashCommandBuilder
+  SlashCommandBuilder, StageChannel, VoiceChannel
 } from 'discord.js';
 import {type DiscordCommand} from '../index.js'
 import {type StreamingRoom, StreamingRoomManager} from "../../streaming/rooms/index.js";
@@ -34,13 +34,13 @@ export default {
       .setDescription("Get access to streaming rooms context")
       // --------------------------------------------------------------------------------------------------
       .addSubcommand(cmd => cmd
-        .setName('view')
-        .setDescription('View all currently enrolled rooms')
+        .setName('list')
+        .setDescription('List all currently enrolled rooms')
       )
       // --------------------------------------------------------------------------------------------------
       .addSubcommand(cmd => cmd
-        .setName('enroll')
-        .setDescription('Enroll a new room in the registry')
+        .setName('set')
+        .setDescription('Set a new room in the registry')
         .addStringOption(opt => opt
           .setName("id")
           .setDescription("The id of disposed room")
@@ -51,11 +51,17 @@ export default {
           .setDescription("The channel to bind at the disposed room")
           .setRequired(true)
         )
+        .addNumberOption(opt => opt
+          .setName("slots")
+          .setDescription("The number of slots allowed in the rooms")
+          .setRequired(true)
+          .setMinValue(1)
+        )
       )
       // --------------------------------------------------------------------------------------------------
       .addSubcommand(cmd => cmd
-        .setName('discard')
-        .setDescription('Discard a room from the registry')
+        .setName('unset')
+        .setDescription('Unset a room from the registry')
         .addStringOption(opt => opt
           .setName("id")
           .setDescription("The id of disposed room")
@@ -92,7 +98,7 @@ async function handleAnnounce(interaction: ChatInputCommandInteraction) {
     flags: MessageFlagsBitField.Flags.Ephemeral
   });
 
-  ServerManager.send(ServerPacketType.ANNOUNCEMENT, {
+  ServerManager.sendPacket(ServerPacketType.ANNOUNCEMENT, {
     message: message
   })
 
@@ -114,48 +120,26 @@ async function handleRooms(interaction: ChatInputCommandInteraction) {
   const cmd = interaction.options.getSubcommand();
 
   switch (cmd) {
-    case 'view':
-      await handleRoomView(interaction)
+    case 'list':
+      await handleRoomList(interaction)
       break;
-    case 'enroll':
-      await handleRoomEnroll(interaction)
+    case 'set':
+      await handleRoomSet(interaction)
       break;
-    case 'discard':
-      await handleRoomDiscard(interaction)
+    case 'unset':
+      await handleRoomUnset(interaction)
       break;
     default:
       throw new Error("No subcommand available");
   }
 }
 
-async function handleRoomView(interaction: ChatInputCommandInteraction) {
+async function handleRoomList(interaction: ChatInputCommandInteraction) {
   await interaction.deferReply({
     flags: MessageFlagsBitField.Flags.Ephemeral
   });
 
   const rooms = StreamingRoomManager.list();
-
-  // const markdown = json2md([
-  //   {
-  //     h2: "List of configured streaming rooms"
-  //   },
-  //   {
-  //     table: {
-  //       headers: [
-  //         "title", "channel"
-  //       ],
-  //       rows: data.map(it => ({
-  //           title: it.id,
-  //           channel: it.discord.channel.id
-  //         })
-  //       )
-  //     }
-  //   }
-  // ]);
-  //
-  // await interaction.editReply({
-  //   content: markdown
-  // });
 
   const embed = new EmbedBuilder()
     .setTitle("List of configured streaming rooms")
@@ -171,17 +155,25 @@ async function handleRoomView(interaction: ChatInputCommandInteraction) {
   });
 }
 
-async function handleRoomEnroll(interaction: ChatInputCommandInteraction) {
+async function handleRoomSet(interaction: ChatInputCommandInteraction) {
   const id = interaction.options.getString("id")!;
+  const slots = interaction.options.getNumber("slots")!;
   const channel = interaction.options.getChannel("channel")!;
 
   await interaction.deferReply({
     flags: MessageFlagsBitField.Flags.Ephemeral,
   });
 
+  if(channel instanceof VoiceChannel || channel instanceof StageChannel) {
+    await channel.setUserLimit(slots, "Set limit by streaming room space");
+  }
+
   const rooms: StreamingRoom[] = [
     {
       id: id,
+      settings: {
+        slots: slots,
+      },
       discord: {
         channel: {
           id: channel.id
@@ -191,10 +183,9 @@ async function handleRoomEnroll(interaction: ChatInputCommandInteraction) {
   ];
 
   try {
-    StreamingRoomManager.enroll(rooms[0]!);
+    StreamingRoomManager.set(rooms[0]!);
   } catch (error) {
-    console.log("")
-    throw new Error("Can not enroll new room in the registry due an error", {cause: error})
+    throw new Error("Can not set room in the registry due an error", {cause: error})
   }
 
   const embed = new EmbedBuilder()
@@ -211,24 +202,35 @@ async function handleRoomEnroll(interaction: ChatInputCommandInteraction) {
   });
 }
 
-async function handleRoomDiscard(interaction: ChatInputCommandInteraction) {
+async function handleRoomUnset(interaction: ChatInputCommandInteraction) {
   const id = interaction.options.getString("id")!;
 
   await interaction.deferReply({
     flags: MessageFlagsBitField.Flags.Ephemeral
   });
 
-  const rooms: StreamingRoom[] = [
-    {
-      id: id
-    }
-  ];
+  const room = StreamingRoomManager.find({ id })
+
+  if(!room) {
+    throw new Error(`Room with id \`${id}\` not found!`);
+  }
+
+  let channel;
+  if(room.discord && room.discord.channel) {
+    channel = await interaction.client.channels.fetch(room.discord.channel.id)
+  }
 
   try {
-    StreamingRoomManager.discard(rooms[0]!);
+    StreamingRoomManager.unset(room);
   } catch (error) {
-    console.log("")
-    throw new Error("Can not discard room from the registry due an error", {cause: error})
+    throw new Error("Can not unset room from the registry due an error", {cause: error})
+  }
+
+  if(channel) {
+    console.log(channel)
+    if(channel.isVoiceBased()) {
+      await channel.setUserLimit(0, "Unset limit by streaming room space");
+    }
   }
 
   const embed = new EmbedBuilder()
@@ -236,7 +238,7 @@ async function handleRoomDiscard(interaction: ChatInputCommandInteraction) {
     .setColor(0x009944)
   ;
 
-  createEmbedFields(embed, rooms);
+  createEmbedFields(embed, [ room ]);
 
   await interaction.editReply({
     embeds: [
@@ -254,137 +256,3 @@ function createEmbedFields(embed: EmbedBuilder, rooms: StreamingRoom[]) {
     embed.addFields({inline: true, name: '\u200B', value: '\u200B'});
   })
 }
-
-// export default {
-//   typeAllowed: [
-//     ChatInputCommandInteraction
-//   ],
-//   data: new SlashCommandBuilder()
-//     .setName('streaming')
-//     .setDescription('Get access to streaming context')
-//   ,
-//   execute: async (interaction: ChatInputCommandInteraction) => {
-//     const response = await interaction.reply({
-//       content: '`Loading session context`',
-//       components: [],
-//       withResponse: true,
-//       flags: MessageFlagsBitField.Flags.Ephemeral
-//     });
-//     console.log('[discord.streaming.response]', response)
-//
-//     if (response && response.resource && response.resource.message) {
-//
-//       sendMainMenu(interaction)
-//         .then(
-//           () => createActionCollector(interaction, response!.resource!.message!)
-//         )
-//     } else {
-//       await interaction.editReply({
-//         content: "Session terminated due failing on load context"
-//       })
-//     }
-//   },
-// } as DiscordCommand;
-
-// async function handleError(interaction: Interaction, error: any) {
-//   console.error(error);
-//
-//   if (interaction.isChatInputCommand()) {
-//     await interaction.editReply({
-//       content: error.message,
-//       components: []
-//     });
-//   } else if (interaction.isButton() || interaction.isStringSelectMenu()) {
-//     await interaction.update({
-//       content: error.message,
-//       components: []
-//     });
-//   }
-// }
-//
-// function createActionCollector(interaction: ChatInputCommandInteraction, message: Message) {
-//   console.log(`[discord.streaming.collector]`)//, message);
-//
-//   const collector = message.createMessageComponentCollector({
-//     time: 20_000
-//   })
-//
-//   collector.on('collect', async (action) => {
-//     let actionId = null;
-//
-//     if (action.isButton()) {
-//       actionId = action.customId;
-//     } else if (action.isStringSelectMenu()) {
-//       actionId = action.values[0];
-//     }
-//
-//     console.log(`[discord.streaming.collector.collect]`, action.constructor.name, '->', actionId);
-//
-//     try {
-//       switch (actionId) {
-//         case 'streaming':
-//           await sendMainMenu(action);
-//           break;
-//         case 'streaming_rooms':
-//           await sendRoomsMenu(action);
-//           break;
-//         default:
-//           throw new Error("Session terminated due out of context");
-//       }
-//     } catch (error: any) {
-//       await handleError(interaction, error);
-//     }
-//   });
-//   collector.on('end', async (action) => {
-//     console.log(`[discord.streaming.collector.end]`);
-//
-//     await interaction.editReply({content: '`Session terminated due no input received`', components: []});
-//   });
-// }
-//
-// async function sendMainMenu(interaction: Interaction) {
-//   const data = {
-//     content: '`Streaming | Main Menu`',
-//     components: [
-//       new ActionRowBuilder()
-//         .addComponents(
-//           // new ButtonBuilder()
-//           //   .setCustomId('streaming_rooms')
-//           //   .setLabel('Rooms')
-//           //   .setStyle(ButtonStyle.Primary)
-//           new StringSelectMenuBuilder()
-//             .setCustomId("streaming___select")
-//             .addOptions(
-//               new StringSelectMenuOptionBuilder()
-//                 .setValue("streaming_rooms")
-//                 .setLabel("Rooms")
-//             )
-//         )
-//         .toJSON()
-//     ],
-//   };
-//   if (interaction.isChatInputCommand()) {
-//     return await interaction.editReply(data);
-//   } else if (interaction.isButton()) {
-//     return await interaction.update(data);
-//   } else {
-//     await handleError(interaction, new Error("Session terminated due out of context"));
-//   }
-// }
-//
-// async function sendRoomsMenu(interaction: Interaction) {
-//   if (interaction.isButton()) {
-//     return await interaction.update({
-//       content: '`Streaming | Rooms Menu`',
-//       components: [
-//         new ActionRowBuilder()
-//           .addComponents(
-//             new ButtonBuilder().setCustomId("streaming").setLabel("Back").setStyle(ButtonStyle.Secondary)
-//           )
-//           .toJSON()
-//       ]
-//     });
-//   } else {
-//     await handleError(interaction, new Error("Session terminated due out of context"));
-//   }
-// }

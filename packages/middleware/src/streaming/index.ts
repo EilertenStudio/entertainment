@@ -2,7 +2,7 @@ import {resolveConfigurationFile} from "../configuration/index.js";
 
 export class StreamingContext {
 
-  config = resolveConfigurationFile("streaming", "config.toml")
+  configFile = resolveConfigurationFile("streaming", "config.toml")
 
 }
 

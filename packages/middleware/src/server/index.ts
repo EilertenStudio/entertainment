@@ -1,23 +1,24 @@
-import {WebSocketServer} from "ws";
+import {WebSocketServer, WebSocket} from "ws";
 import {Collection, GatewayIntentBits, REST, Routes, SlashCommandBuilder} from "discord.js";
 import path from "node:path";
 import fs from "node:fs";
-import type {GodotPacket, VoiceEventData} from "../types.js";
-
-export interface ServerPacket {
-  timestamp: number
-  type: ServerPacketType,
-  data: any
-}
 
 export enum ServerPacketType {
+  COMMAND = 'command',
   ANNOUNCEMENT = 'announcement',
   VOICE_STATE_UPDATE = "voiceStateUpdate",
 }
 
+export interface ServerPacket {
+  timestamp: number
+  name: string,
+  data: any
+}
+
 export interface ServerCommand {
-  data: SlashCommandBuilder;
-  execute: () => Promise<void>;
+  name: string;
+  handle: (server: Server, client: WebSocket, data: ServerPacket) => Promise<void>;
+  send?: () => Promise<void>;
 }
 
 export class Server extends WebSocketServer {
@@ -29,62 +30,66 @@ export class ServerContext {
 
    server?: Server;
 
-  public send(type: ServerPacketType, data: any): void {
+  public async handleCommand(command: ServerCommand, packet: ServerPacket) {
     if (!this.server) {
       throw new Error("Server not initialized yet!")
     }
-    // console.log('[server.send.clients]', this.server.clients);
 
-    this.server.clients.forEach(client => {
-      console.log(`[server.send.client.${client.url}]`, "Ready for send");
+    if(!command.handle) {
+      throw new Error("Can not handle command due missing send function")
+    }
 
+    for (const client of this.server.clients) {
+      await command.handle(this.server!, client, packet);
+    }
+  }
+
+  public async sendCommand(command: ServerCommand) {
+    if (!this.server) {
+      throw new Error("Server not initialized yet!")
+    }
+
+    if(command.send) {
+      await command?.send()
+    }
+    else {
+      throw new Error("Can not send command due missing send function")
+    }
+  }
+
+  public async sendPacket(name: string, data: any) {
+    if (!this.server) {
+      throw new Error("Server not initialized yet!")
+    }
+
+    let index = 0;
+    this.server.clients.forEach((client) => {
       if(client && client.readyState === WebSocket.OPEN) {
         const packet: ServerPacket = {
-          timestamp: new Date().getTime(),
-          type,
+          timestamp: new Date().getTime() / 1000,
+          name: name,
           data
         }
-        client.send(
-          JSON.stringify(packet)
-        )
+
+        console.log(`[server.client.command.${name}]`, packet);
+
+        client.send(JSON.stringify(packet))
       }
     });
   }
+
+  // public findServerCommand(command: ServerCommand) {
+  //   return this.server?.commands.find(it => it.name === name)!;
+  // }
 }
 
 export const ServerManager = new ServerContext();
-
-// let index: WebSocketServer;
-// let serverServer: WebSocket | null;
-
-// export function start() {
-//   index = new WebSocketServer({
-//     port: Number(process.env.SERVER_PORT) || 8080
-//   });
-//
-//   index.on('connection', (ws: WebSocket) => {
-//     console.log('[server.connection]', 'Server connected');
-//     serverServer = ws;
-//
-//     ws.on('error', (error: Error) => {
-//       console.error('[server.error]', error);
-//     });
-//
-//     ws.on('message', (data) => {
-//       console.log('[server.message]', data.toString());
-//     });
-//
-//     ws.on('close', (code: number, reason: Buffer) => {
-//       console.log('[server.close]', `Server disconnected: ${reason.toString() || code}`);
-//       serverServer = null;
-//     });
-//   });
-// }
 
 export function start() {
   initServer()
     .then(initServerEvents)
     .then(initServerCommands)
+    .then(initServerListeners)
   ;
 }
 
@@ -114,13 +119,6 @@ async function initServerEvents(server: Server) {
   return server;
 }
 
-export async function getServerEvents(server: Server) {
-  // console.log(server.events);
-  // TODO: register events as server attribute
-  return server;
-}
-
-
 async function initServerCommands(server: Server) {
   const foldersPath = path.join('src', 'server', 'commands');
   const commandFiles = fs.readdirSync(foldersPath, {
@@ -135,7 +133,7 @@ async function initServerCommands(server: Server) {
 
     const command = (await import(filePath)).default as ServerCommand;
 
-    server.commands.set(command.data.name, command);
+    server.commands.set(command.name, command);
   }
 
 
@@ -144,7 +142,55 @@ async function initServerCommands(server: Server) {
   return server;
 }
 
-export async function getServerCommands(server: Server) {
+async function getServerEvents(server: Server) {
+  // console.log(server.events);
+  // TODO: register events as server attribute
+  return server;
+}
+
+async function initServerListeners(server: Server) {
+
+  server.on('listening', () => {
+    console.log('[server.listening]', 'Server waiting for connections');
+  });
+
+  server.on('connection', (client) => {
+    console.log('[server.connection]', 'Client connected')//,  client);
+
+    client.on('open', () => {
+      console.log('[server.client.open', arguments);
+    });
+
+    client.on('close', (code, reason) => {
+      console.log('[server.client.close]', `Client disconnected (code: ${code}) (reason: ${reason})`);
+    });
+
+    client.on('upgrade', () => {
+      console.log('[server.client.upgrade', arguments);
+    });
+
+    client.on('error', (error) => {
+      console.error('[server.client.error]', error)
+    });
+
+    client.on('message', (rawData) => {
+      const packet = JSON.parse(rawData.toString()) as ServerPacket;
+
+      const command = server.commands.find(it => it.name === packet.name)
+      if(command) {
+        ServerManager.handleCommand(command, packet);
+      }
+      else {
+        console.log('[server.client.message]', packet);
+      }
+
+    });
+  });
+
+  return server
+}
+
+async function getServerCommands(server: Server) {
   // console.log(server.commands);
   return server;
 }

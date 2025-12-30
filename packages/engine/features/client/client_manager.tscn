@@ -1,0 +1,37 @@
+[gd_scene load_steps=2 format=3 uid="uid://bqf7nocgwxgn5"]
+
+[ext_resource type="Script" uid="uid://8527jlfk6r54" path="res://features/client/client_manager.gd" id="1_5xp35"]
+
+[node name="ClientManager" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_5xp35")
+
+[node name="ClientController" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ConnectionInfo" type="Label" parent="ClientController"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 16.0
+offset_right = 165.0
+offset_bottom = 40.0
+text = "Client disconnect"
+
+[node name="Reconnect" type="Button" parent="ClientController"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 48.0
+offset_right = 208.0
+offset_bottom = 79.0
+text = "Reconnect"
+
+[node name="UpdateConfiguration" type="Button" parent="ClientController"]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 88.0
+offset_right = 208.0
+offset_bottom = 119.0
+text = "Update Configuration"

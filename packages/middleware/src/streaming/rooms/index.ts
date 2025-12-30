@@ -1,8 +1,24 @@
 import {resolveConfigurationFile} from "../../configuration/index.js";
+import {StreamingManager} from "../index.js";
+import configuration_set from "../../server/commands/configuration_set.js";
+import {ServerManager} from "../../server/index.js";
 
-export interface StreamingRoom {
+export interface StreamingRoomContainer {
+  [key: string]: StreamingRoom
+}
+
+export interface StreamingRoom extends StreamingRoomId {
   id: string,
+  settings?: StreamingRoomSettings
   discord?: StreamingRoomDiscordIntegration
+}
+
+export interface StreamingRoomId {
+  id: string,
+}
+
+export interface StreamingRoomSettings {
+  slots?: number,
 }
 
 export interface StreamingRoomDiscordIntegration {
@@ -12,54 +28,89 @@ export interface StreamingRoomDiscordIntegration {
 }
 
 export interface StreamingRoomConfigurationFile {
-  rooms: {
-    [key: string]: StreamingRoom
-  }
+  rooms: StreamingRoomContainer
 }
 
 export class StreamingRoomContext {
 
-  config = resolveConfigurationFile("streaming", "rooms", "config.toml")
+  private configFile = StreamingManager.configFile
+
+  private get data() {
+    const data = StreamingManager.configFile.data as StreamingRoomConfigurationFile;
+
+    if(!data.rooms) {
+      data.rooms = {};
+    }
+
+    return data.rooms;
+  }
+
+  private set data(value: StreamingRoomContainer) {
+    const data = StreamingManager.configFile.data as StreamingRoomConfigurationFile;
+
+    if(!value) {
+      data.rooms = {}
+    }
+    else {
+      data.rooms = value
+    }
+  }
+
+  find(filter: StreamingRoomId | StreamingRoomDiscordIntegration) {
+    this.configFile.load();
+
+    if('id' in filter) {
+      return Object.values(this.data).find(it => it.id === filter.id)
+    }
+    if('channel' in filter) {
+      return Object.values(this.data).find(it => it?.discord?.channel.id === filter.channel.id)
+    }
+  }
 
   list(): StreamingRoom[] {
-    this.config.load();
+    this.configFile.load();
 
-    const data = this.config.data as StreamingRoomConfigurationFile;
-
-    return Object.values(data.rooms) || [];
+    return Object.values(this.data) || [];
   }
 
-  enroll(room: StreamingRoom) {
-    const data = this.config.data as StreamingRoomConfigurationFile;
-    // console.log('[before]', data);
+  set(room: StreamingRoom) {
+    // console.log('[before]', this.data)
 
-    if (!data.rooms) {
-      data.rooms = {};
+    if(room.discord?.channel.id) {
+      const roomByChannel = this.find({
+        channel: {
+          id: room.discord.channel.id
+        }
+      });
+
+      if(roomByChannel) {
+        throw new Error(`Room must have unique discord channel. Already defined in ${room.id}`)
+      }
     }
-    data.rooms[room.id] = room;
 
-    // console.log('[after]', data)
+    this.data[room.id] = room;
 
-    this.config.data = data
+    // console.log('[after]', this.data)
+
+    this.configFile.save();
+
+    ServerManager.sendCommand(configuration_set).then(r => {});
   }
 
-  discard(room: StreamingRoom) {
-    const data = this.config.data as StreamingRoomConfigurationFile;
-    // console.log('[before]', data);
-
-    if (!data.rooms) {
-      data.rooms = {};
+  unset(filter: StreamingRoomId) {
+    if (!this.data[filter.id]) {
+      throw new Error(`Room with id '${filter.id}' not found`)
     }
 
-    if (!data.rooms[room.id]) {
-      throw new Error(`Room with id \`${room.id}\` not found`)
-    }
+    // console.log('[before]', this.data)
 
-    delete data.rooms[room.id];
+    delete this.data[filter.id];
 
-    // console.log('[after]', data)
+    // console.log('[after]', this.data)
 
-    this.config.data = data
+    this.configFile.save();
+
+    ServerManager.sendCommand(configuration_set).then(r => {});
   }
 }
 

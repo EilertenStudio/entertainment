@@ -18,8 +18,8 @@ export function loadCredentials() {
   }
 }
 
-export function resolveConfigurationFile(...paths: string[]) : SyncConfigurationFile {
-  return new SyncConfigurationFile({
+export function resolveConfigurationFile(...paths: string[]) {
+  return new StandardConfigurationFile({
     path: path.join(...paths),
     data: {}
   });
@@ -28,6 +28,43 @@ export function resolveConfigurationFile(...paths: string[]) : SyncConfiguration
 export interface ConfigurationFile {
   path: string,
   data: object
+}
+
+export class StandardConfigurationFile implements ConfigurationFile {
+
+  constructor(props: ConfigurationFile) {
+    this.path = path.resolve(process.env.STORAGE_DIR || path.join('storage'), props.path);
+
+    let parentPath = path.dirname(this.path);
+
+    if (!fs.existsSync(parentPath)) {
+      fs.mkdirSync(parentPath, { recursive: true });
+    }
+    if(!fs.existsSync(this.path)) {
+      this.data = props.data;
+    }
+    else {
+      this.load();
+    }
+    // console.log("[ConfigurationFile.ready]", this.data)
+  }
+
+  path: string;
+  data: object = {};
+
+  public load() {
+    this.data = toml.parse(
+      fs.readFileSync(this.path, {encoding: 'utf-8'})
+    );
+    // console.log("[ConfigurationFile.load]", this.data);
+    return this.data;
+  }
+
+  public save() {
+    fs.writeFileSync(this.path, toml.stringify(this.data), {encoding: 'utf-8'});
+    // console.log("[ConfigurationFile.save]", this.data);
+  }
+
 }
 
 export class SyncConfigurationFile implements ConfigurationFile {
