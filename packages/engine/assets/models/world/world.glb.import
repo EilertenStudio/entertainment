@@ -64,16 +64,16 @@ _subresources={
 "PATH:Assets/globals/Sun": {
 "node/node_type": "DirectionalLight3D"
 },
-"PATH:Assets/rooms/rooms-1/rooms-1-spawns/room-1-spawn_001": {
+"PATH:Assets/rooms/room-1/rooms-1-spawns/room-1-spawn_000": {
 "node/node_type": "Marker3D"
 },
-"PATH:Assets/rooms/rooms-1/rooms-1-spawns/room-1-spawn_002": {
+"PATH:Assets/rooms/room-1/rooms-1-spawns/room-1-spawn_001": {
 "node/node_type": "Marker3D"
 },
-"PATH:Assets/rooms/rooms-1/rooms-1-spawns/room-1-spawn_003": {
+"PATH:Assets/rooms/room-1/rooms-1-spawns/room-1-spawn_002": {
 "node/node_type": "Marker3D"
 },
-"PATH:Assets/rooms/rooms-1/rooms-1-spawns/room-1-spawn_004": {
+"PATH:Assets/rooms/room-1/rooms-1-spawns/room-1-spawn_003": {
 "node/node_type": "Marker3D"
 }
 }

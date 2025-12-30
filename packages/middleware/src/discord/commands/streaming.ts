@@ -172,7 +172,7 @@ async function handleRoomSet(interaction: ChatInputCommandInteraction) {
     {
       id: id,
       settings: {
-        slots: slots,
+        maxSlots: slots,
       },
       discord: {
         channel: {

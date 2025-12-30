@@ -3,28 +3,27 @@ import {StreamingManager} from "../index.js";
 import configuration_set from "../../server/commands/configuration_set.js";
 import {ServerManager} from "../../server/index.js";
 
-export interface StreamingRoomContainer {
-  [key: string]: StreamingRoom
+export interface StreamingRoomDiscordIntegration {
+  channel: {
+    id: string
+  }
 }
 
-export interface StreamingRoom extends StreamingRoomId {
-  id: string,
-  settings?: StreamingRoomSettings
-  discord?: StreamingRoomDiscordIntegration
+export interface StreamingRoomSettings {
+  maxSlots: number,
 }
 
 export interface StreamingRoomId {
   id: string,
 }
 
-export interface StreamingRoomSettings {
-  slots?: number,
+export interface StreamingRoom extends StreamingRoomId {
+  settings: StreamingRoomSettings
+  discord: StreamingRoomDiscordIntegration
 }
 
-export interface StreamingRoomDiscordIntegration {
-  channel: {
-    id: string
-  }
+export interface StreamingRoomContainer {
+  [key: string]: StreamingRoom
 }
 
 export interface StreamingRoomConfigurationFile {
@@ -35,8 +34,8 @@ export class StreamingRoomContext {
 
   private configFile = StreamingManager.configFile
 
-  private get data() {
-    const data = StreamingManager.configFile.data as StreamingRoomConfigurationFile;
+  public get data() {
+    const data = this.configFile.data as StreamingRoomConfigurationFile;
 
     if(!data.rooms) {
       data.rooms = {};
@@ -46,7 +45,7 @@ export class StreamingRoomContext {
   }
 
   private set data(value: StreamingRoomContainer) {
-    const data = StreamingManager.configFile.data as StreamingRoomConfigurationFile;
+    const data = this.configFile.data as StreamingRoomConfigurationFile;
 
     if(!value) {
       data.rooms = {}
@@ -83,7 +82,7 @@ export class StreamingRoomContext {
         }
       });
 
-      if(roomByChannel) {
+      if(roomByChannel && room.id !== roomByChannel.id) {
         throw new Error(`Room must have unique discord channel. Already defined in ${room.id}`)
       }
     }

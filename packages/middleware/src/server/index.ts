@@ -17,8 +17,8 @@ export interface ServerPacket {
 
 export interface ServerCommand {
   name: string;
-  handle: (server: Server, client: WebSocket, data: ServerPacket) => Promise<void>;
-  send?: () => Promise<void>;
+  handle: (args: { server: Server, client: WebSocket, packet: ServerPacket }) => Promise<void>;
+  send?: (args?: any) => Promise<void>;
 }
 
 export class Server extends WebSocketServer {
@@ -40,17 +40,17 @@ export class ServerContext {
     }
 
     for (const client of this.server.clients) {
-      await command.handle(this.server!, client, packet);
+      await command.handle({ server: this.server!, client, packet});
     }
   }
 
-  public async sendCommand(command: ServerCommand) {
+  public async sendCommand(command: ServerCommand, args?: any) {
     if (!this.server) {
       throw new Error("Server not initialized yet!")
     }
 
     if(command.send) {
-      await command?.send()
+      await command?.send(args)
     }
     else {
       throw new Error("Can not send command due missing send function")
@@ -71,7 +71,7 @@ export class ServerContext {
           data
         }
 
-        console.log(`[server.client.command.${name}]`, packet);
+        console.log(`[server.client.packet.${name}]`, packet);
 
         client.send(JSON.stringify(packet))
       }
