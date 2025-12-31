@@ -17,6 +17,7 @@ func _ready() -> void:
 	client_manager.connect("client_user_join", func(user):
 		var spawner = world_room_spawner_find(user.room.id, user.room.slot)
 		if spawner:
+			print("Add player at spawner location")
 			var player = preload("res://assets/models/player/player.tscn").instantiate()
 			spawner.add_child(player)
 		else:
@@ -27,6 +28,7 @@ func _ready() -> void:
 	client_manager.connect("client_user_leave", func(user):
 		var spawner = world_room_spawner_find(user.room.id, user.room.slot)
 		if spawner:
+			print("Remove player at spawner location")
 			for child in spawner.get_children():
 				spawner.remove_child(child)
 		else:

@@ -1,3 +1,4 @@
 include:
-  - path: packages/middleware/compose.yaml
+  - path: packages/rtmp/compose.yaml
+#  - path: packages/middleware/compose.yaml
 

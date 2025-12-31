@@ -1,5 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://b0x8x5vvr0eiw"]
+[gd_scene load_steps=4 format=3 uid="uid://b0x8x5vvr0eiw"]
 
 [ext_resource type="PackedScene" uid="uid://oxgxilb2gieh" path="res://assets/models/player/player.glb" id="1_dsxty"]
+[ext_resource type="Script" uid="uid://dem4elv43pkt3" path="res://assets/models/player/player.gd" id="2_2oics"]
+[ext_resource type="AudioStream" uid="uid://lkus5clsm8bd" path="res://assets/sfx/829414__josefpres__piano-loops-192-octave-down-short-loop-120-bpm.wav" id="2_fhjat"]
 
 [node name="Player" instance=ExtResource("1_dsxty")]
+script = ExtResource("2_2oics")
+
+[node name="829414JosefpresPianoLoops192OctaveDownShortLoop120Bpm" type="AudioStreamPlayer" parent="." index="1"]
+stream = ExtResource("2_fhjat")
+volume_db = -14.341
+autoplay = true

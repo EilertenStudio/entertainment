@@ -1,0 +1,13 @@
+paths:
+  application:
+    source: publisher
+  replay/twitch:
+    source: publisher
+    readBufferCount: 4096
+
+## --- WebRTC Configuration ---
+#webrtc: yes
+#webrtcAddress: :8889
+#webrtcICEUDP: yes
+##webrtcICEUDPServerPort: 8189
+##webrtcICEUDPServerPortExternal: 9103

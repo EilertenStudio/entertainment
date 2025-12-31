@@ -21,6 +21,10 @@ static var client_socket = WebSocketPeer.new()
 @export var client_users: Dictionary
 
 func _ready() -> void:
+	# == Inizialive variables
+	if OS.has_environment("WS_SERVER_URL"):
+		client_connection_url = OS.get_environment("WS_SERVER_URL")
+	print("Client connection set to %s" % client_connection_url)
 	# == Inizialize features
 	client_configuration_init(true)
 	client_users_init(true)
@@ -59,16 +63,26 @@ func client_state_update(_trace := false):
 			match connection_state:
 				# When connected -> disconnect
 				WebSocketPeer.STATE_OPEN, WebSocketPeer.STATE_CONNECTING:
-					client_connection_state_set(WebSocketPeer.STATE_CLOSED, _trace)
-					client_state_disconnected.emit()
+					client_connection_state_set(
+						WebSocketPeer.STATE_CLOSED, 
+						func on_close():
+							client_state_disconnected.emit()
+							pass,
+						_trace
+					)
 		State.CONNECTED:
 			match connection_state:
 				# When disconnect -> connect
 				WebSocketPeer.STATE_CLOSED, WebSocketPeer.STATE_CLOSING:
-					client_connection_state_set(WebSocketPeer.STATE_OPEN, _trace)
-					client_state_connected.emit()
+					client_connection_state_set(
+						WebSocketPeer.STATE_OPEN,
+						func on_open():
+							client_state_connected.emit()
+							pass,
+						_trace
+					)
 				# When connect -> update features
-				_:
+				WebSocketPeer.STATE_OPEN:
 					client_command_update(_trace)
 	pass
 
@@ -76,18 +90,45 @@ func client_connection_state_get(_trace := false):
 	client_socket.poll()
 	return client_socket.get_ready_state()
 
-func client_connection_state_set(state: int, _trace := false):
+func client_connection_state_set(state: int, closure: Callable = func(): pass, _trace := false):
 	match state:
 		WebSocketPeer.STATE_OPEN:
 			if _trace: print("Set connection state to OPEN")
-			if client_socket.connect_to_url(client_connection_url) == OK:
-				while client_socket.get_ready_state() != WebSocketPeer.STATE_OPEN:
+			var tentative_count := 0
+			var connection_state_result = client_socket.connect_to_url(client_connection_url)
+			if connection_state_result == OK:
+				client_socket.poll()
+				while client_socket.get_ready_state() != WebSocketPeer.STATE_OPEN && tentative_count < 5:
+					if _trace: print("Await client connection tentative %s" % (tentative_count + 1))
 					client_socket.poll()
+					if DisplayServer.get_name() == "headless":
+						OS.delay_msec(1000)
+					else:
+						await get_tree().create_timer(1).timeout
+					tentative_count += 1
+				if client_socket.get_ready_state() == WebSocketPeer.STATE_OPEN:
+					closure.call()
+				else:
+					client_state = State.DISCONNECTED
 			else:
-				printerr("Set connection state failed at %s" % client_connection_url)
+				print("Set connection state failed at %s" % client_connection_url)
 		WebSocketPeer.STATE_CLOSED:
 			if _trace: print("Set connection state to CLOSED")
 			client_socket.close(1000, "Closed by user")
+			client_socket.poll()
+			var tentative_count := 0
+			while client_socket.get_ready_state() != WebSocketPeer.STATE_CLOSED && tentative_count < 5:
+				if _trace: print("Await client disconnection tentative %s" % (tentative_count + 1))
+				client_socket.poll()
+				if DisplayServer.get_name() == "headless":
+					OS.delay_msec(1000)
+				else:
+					await get_tree().create_timer(1).timeout
+				tentative_count += 1
+			if client_socket.get_ready_state() == WebSocketPeer.STATE_CLOSED:
+				closure.call()
+			else:
+				client_state = State.CONNECTED
 	pass
 
 signal client_command_received(packet: Dictionary)

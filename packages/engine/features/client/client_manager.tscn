@@ -6,6 +6,7 @@
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_5xp35")
+client_connection_url = "ws://127.0.0.1:8089"
 
 [node name="ClientController" type="Control" parent="."]
 anchors_preset = 0
