@@ -1,4 +1,5 @@
+name: eilertenstudio-entertainment
+
 include:
-  - path: packages/rtmp/compose.yaml
-#  - path: packages/middleware/compose.yaml
+  - path: containers/compose.yaml
 

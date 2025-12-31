@@ -1,0 +1,38 @@
+{
+  "name": "es-entertainment-middleware",
+  "version": "0.1.0-alpha.0",
+  "description": "Bridge middleware between Discord API and Godot Engine for Eilerten Studio Entertainment service",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "publish-discord-commands": "tsx src/discord/publish.ts",
+    "start": "tsx src/index.ts",
+    "dev": "nodemon --exec tsx src/index.ts"
+  },
+  "keywords": [
+    "discord",
+    "godot",
+    "websocket",
+    "streaming",
+    "middleware"
+  ],
+  "author": "Eilerten Studio",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^14.14",
+    "dotenv": "^16.4",
+    "json2md": "^2.0",
+    "smol-toml": "^1.6",
+    "ws": "^8.16"
+  },
+  "devDependencies": {
+    "@types/node": "^25.0",
+    "@types/ws": "^8.18",
+    "@types/json2md": "^1.5",
+    "nodemon": "^3.1",
+    "ts-node": "^10.9",
+    "tsx": "^4.21",
+    "typescript": "^5.9"
+  }
+}

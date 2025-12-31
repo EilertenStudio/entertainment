@@ -1,0 +1,38 @@
+[tools]
+# -----------------------------------------------------------------------------
+npm = "11.6.0"
+node = "22"
+
+[env]
+CREDENTIALS_FILE="./.env.credentials"
+
+# -----------------------------------------------------------------------------
+[tasks."setup"]
+description = "Setup project workspace"
+run = "npm i"
+
+[tasks."build"]
+description = "Build project artifacts"
+run = "npm run build"
+
+[tasks."publish"]
+description = "Publish project artifacts and configuration"
+run = "npm run publish-discord-commands"
+
+# -----------------------------------------------------------------------------
+[tasks."start"]
+description = "Start production service"
+#run = "npm run start"
+run = [
+  "docker compose -f ../../compose.yaml up app-server"
+]
+
+[tasks."stop"]
+description = "Stop production service"
+run = [
+  "docker compose -f ../../compose.yaml down app-server"
+]
+
+[tasks."start:dev"]
+description = "Start development server"
+run = "npm run dev"

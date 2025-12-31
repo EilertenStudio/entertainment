@@ -1,0 +1,26 @@
+[tools."aqua:godotengine/godot"]
+version = "4.5"
+
+# -----------------------------------------------------------------------------
+[tasks."setup"]
+description = "Setup project workspace"
+run = "mise i"
+
+# -----------------------------------------------------------------------------
+[tasks."start"]
+description = "Start production service"
+run = [
+  "docker compose -f ../../compose.yaml up app-client"
+]
+
+[tasks."stop"]
+description = "Stop production service"
+run = [
+  "docker compose -f ../../compose.yaml down app-client"
+]
+
+[tasks."start:editor"]
+description = "Run engine editor"
+run = [
+ "mise exec -- godot --editor"
+]

@@ -2,3 +2,9 @@ experimental_monorepo_root = true
 
 [settings]
 auto_install = true
+
+[tasks."start"]
+description = "Start each service of the project"
+run = [
+  "docker compose up"
+]
