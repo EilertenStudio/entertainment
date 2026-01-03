@@ -1,0 +1,120 @@
+services:
+
+  rtmp-server:
+    image: bluenviron/mediamtx:1.15.6-ffmpeg
+    volumes:
+      - ./entrypoints/rtmp-server.sh:/entrypoint.sh
+      - ./configs/rtmp-server.yml:/mediamtx.yml
+      - ./scripts/rtmp-common-init.sh:/srv/scripts/rtmp-common-init.sh
+      - ./scripts/rtmp-server-switch.sh:/srv/scripts/rtmp-server-switch.sh
+      - ./scripts/rtmp-server-publish.sh:/srv/scripts/rtmp-server-publish.sh
+    ports:
+#      - "1935:1935" #RTMP
+      - "39100:1935" #RTMP
+      - "39101:8888" #HLS
+      - "39102:8889" #WebRTC (TCP)
+      - "39103:8189/udp" #WebRTC (UDP)
+      - "39103:8189/tcp" #WebRTC (UDP)
+      - "39104:8890/udp" #SRT
+    secrets:
+      - rtmp-server-credentials
+    entrypoint: >
+      /bin/sh /entrypoint.sh
+    environment:
+      CREDENTIALS_FILE: /run/secrets/rtmp-server-credentials
+      PUBLISH_ON_TWITCH: 0
+    deploy:
+      resources:
+        limits:
+          cpus: '1.5'
+          memory: 2G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+
+  rtmp-application:
+    image: eilertenstudio/stream-rtmp-application
+    build:
+      dockerfile: ./images/rtmp-application.Dockerfile
+    volumes:
+      - ./entrypoints/rtmp-application.sh:/entrypoint.sh
+      - ./configs/rtmp-application.yml:/mediamtx.yml
+      - ./scripts/rtmp-common-init.sh:/srv/scripts/rtmp-common-init.sh
+      - ./scripts/rtmp-application-music.sh:/srv/scripts/rtmp-application-music.sh
+      - ./scripts/rtmp-application-compose.sh:/srv/scripts/rtmp-application-compose.sh
+      - ./scripts/rtmp-application-publish.sh:/srv/scripts/rtmp-application-publish.sh
+    ports:
+      - "39111:8888" #HLS
+    secrets:
+      - rtmp-server-credentials
+      - rtmp-application-credentials
+    entrypoint: >
+      /bin/sh /entrypoint.sh
+    environment:
+      RTMP_SERVER_CREDENTIALS_FILE: /run/secrets/rtmp-server-credentials
+      RTMP_APPLICATION_CREDENTIALS_FILE: /run/secrets/rtmp-application-credentials
+    deploy:
+      resources:
+        limits:
+          cpus: '1.5'
+          memory: 2G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+    depends_on:
+      - rtmp-server
+
+  app-server:
+    image: node:22-alpine
+    volumes:
+      - ./entrypoints/app-server.sh:/entrypoint.sh
+      - ../packages/app/server/:/runner
+      - /runner/node_modules
+    working_dir: /runner
+    entrypoint: >
+      /bin/sh /entrypoint.sh
+    secrets:
+      - app-server-credentials
+    environment:
+      CREDENTIALS_FILE: /run/secrets/app-server-credentials
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 1G
+
+  app-client:
+    image: eilertenstudio/stream-app-client
+    build:
+      dockerfile: ./images/app-client.Dockerfile
+    volumes:
+      - ./entrypoints/app-client.sh:/entrypoint.sh
+      - ../packages/app/client:/runner
+    secrets:
+      - rtmp-application-credentials
+    working_dir: /runner
+    entrypoint: >
+      /bin/sh /entrypoint.sh
+    environment:
+      WS_SERVER_URL: ws://app-server:8080
+      RTMP_APPLICATION_URL: rtmp://rtmp-application:1935/source/main
+      RTMP_APPLICATION_CREDENTIALS_FILE: /run/secrets/rtmp-application-credentials
+    deploy:
+      resources:
+        limits:
+          cpus: '4.0'
+          memory: 8G
+        reservations:
+          cpus: '2.0'
+          memory: 2G
+    depends_on:
+      - app-server
+      - rtmp-application
+
+secrets:
+  rtmp-server-credentials:
+    file: ../packages/rtmp/server/.env.credentials
+  rtmp-application-credentials:
+    file: ../packages/rtmp/application/.env.credentials
+  app-server-credentials:
+    file: ../packages/app/server/.env.credentials

@@ -21,18 +21,36 @@ run = "npm run publish-discord-commands"
 
 # -----------------------------------------------------------------------------
 [tasks."start"]
-description = "Start production service"
-#run = "npm run start"
+description = "Start project service"
 run = [
-  "docker compose -f ../../compose.yaml up app-server"
-]
-
-[tasks."stop"]
-description = "Stop production service"
-run = [
-  "docker compose -f ../../compose.yaml down app-server"
+  "mise //:container up app-server"
 ]
 
 [tasks."start:dev"]
 description = "Start development server"
 run = "npm run dev"
+
+# -----------------------------------------------------------------------------
+[tasks."container:start"]
+description = "Start service"
+run = [
+  "mise //:container up app-server"
+]
+
+[tasks."container:stop"]
+description = "Stop service"
+run = [
+  "mise //:container down app-server"
+]
+
+[tasks."container:logs"]
+description = "Show service logs"
+run = [
+  "mise //:container logs app-server"
+]
+
+[tasks."container:exec"]
+description = "Execute a process on service"
+run = [
+  "mise //:container exec app-server"
+]

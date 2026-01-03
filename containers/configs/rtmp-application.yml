@@ -1,0 +1,29 @@
+logLevel: warn
+
+authInternalUsers:
+  - user: any
+    permissions:
+      - action: read
+  - user: sha256:pOeU3mwHgKRyZjt/B32/XA4TpkA6b43DIxhpngiKfsU=
+    pass: sha256:2pElOqUlbqhQdRlQwNSAzE/YHevuNpj44TYcj5QEllI=
+    permissions:
+      - action: publish
+
+paths:
+  # TODO: use gamechorps instead lofi-girl
+  source/main:
+    source: publisher
+    runOnInit: sh /srv/scripts/rtmp-common-init.sh
+    runOnReady: sh /srv/scripts/rtmp-application-compose.sh
+    runOnReadyRestart: yes
+
+  source/music:
+    source: publisher
+    runOnInit: sh /srv/scripts/rtmp-application-music.sh
+    runOnInitRestart: true
+
+  output:
+    source: publisher
+    runOnInit: sh /srv/scripts/rtmp-common-init.sh
+    runOnReady: sh /srv/scripts/rtmp-application-publish.sh
+    runOnReadyRestart: yes

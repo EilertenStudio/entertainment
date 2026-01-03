@@ -1,0 +1,51 @@
+[tools."aqua:godotengine/godot"]
+version = "4.5"
+
+# -----------------------------------------------------------------------------
+[tasks."setup"]
+description = "Setup project workspace"
+run = "mise i"
+
+# -----------------------------------------------------------------------------
+[tasks."start"]
+description = "Start project service"
+run = [
+  "mise //:container up app-client"
+]
+
+[tasks."engine:editor"]
+description = "Start project engine editor"
+run = [
+ "mise exec -- godot --editor"
+]
+
+# -----------------------------------------------------------------------------
+[tasks."container:build"]
+description = "Build service"
+run = [
+  "mise //:container build app-client"
+]
+
+[tasks."container:start"]
+description = "Start service"
+run = [
+  "mise //:container up app-client"
+]
+
+[tasks."container:stop"]
+description = "Stop service"
+run = [
+  "mise //:container down app-client"
+]
+
+[tasks."container:logs"]
+description = "Show service logs"
+run = [
+  "mise //:container logs app-client"
+]
+
+[tasks."container:exec"]
+description = "Execute a process on service"
+run = [
+  "mise //:container exec app-client"
+]

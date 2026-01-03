@@ -1,0 +1,30 @@
+# -----------------------------------------------------------------------------
+[tasks."container:build"]
+description = "Build service"
+run = [
+  "mise //:container build rtmp-application"
+]
+
+[tasks."container:start"]
+description = "Start service"
+run = [
+  "mise //:container up rtmp-application"
+]
+
+[tasks."container:stop"]
+description = "Stop service"
+run = [
+  "mise //:container down rtmp-application"
+]
+
+[tasks."container:logs"]
+description = "Show service logs"
+run = [
+  "mise //:container logs rtmp-application"
+]
+
+[tasks."container:exec"]
+description = "Execute a process on service"
+run = [
+  "mise //:container exec rtmp-application"
+]

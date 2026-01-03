@@ -1,5 +1,16 @@
 #!/bin/sh
 
+load_credentials() {
+  echo "Loading credentials from ${1}"
+    set -a
+    . "${1}"
+    set +a
+}
+
+load_credentials "${RTMP_APPLICATION_CREDENTIALS_FILE}"
+
+export
+
 echo ""
 echo "-----------------------------------------------"
 echo "[Pulseaudio] Clean up files"
@@ -31,7 +42,7 @@ echo ""
 echo "-----------------------------------------------"
 echo "[FFmpeg] Running streaming server"
 (
-  ffmpeg \
+  ffmpeg -loglevel error -hide_banner \
     -f x11grab \
     -thread_queue_size 1024 \
     -draw_mouse 0 \
@@ -51,9 +62,10 @@ echo "[FFmpeg] Running streaming server"
     -b:a 128k \
     -ar 44100 \
     -af "aresample=async=1:min_hard_comp=0.100000:first_pts=0" \
-    -f flv \
-    "$RTMP_SERVER_URL" \
+    -f flv "$RTMP_APPLICATION_URL?user=${RTMP_APPLICATION_USERNAME}&pass=${RTMP_APPLICATION_PASSWORD}" \
 ) &
+
+
 
 FFMPEG_PID=$!
 

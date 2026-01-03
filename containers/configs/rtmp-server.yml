@@ -1,0 +1,29 @@
+logLevel: warn
+
+authInternalUsers:
+  - user: any
+    permissions:
+      - action: read
+  - user: sha256:9AcGeiQ3BIWHsWan0RDAa+WNEccgf2zHuXE3W9KHW2o=
+    pass: sha256:PeTG9UuzDa3qYYU7bhzlwBGRK8ktdh+4xfwURXKz4xI=
+    permissions:
+      - action: publish
+
+paths:
+  application:
+    source: publisher
+    runOnInit: sh /srv/scripts/rtmp-common-init.sh application
+    runOnReady: sh /srv/scripts/rtmp-server-switch.sh application
+    runOnReadyRestart: yes
+
+  live:
+    source: publisher
+    runOnInit: sh /srv/scripts/rtmp-common-init.sh live
+    runOnReady: sh /srv/scripts/rtmp-server-switch.sh live
+    runOnReadyRestart: yes
+
+  output:
+    source: publisher
+    runOnInit: sh /srv/scripts/rtmp-common-init.sh output
+    runOnReady: sh /srv/scripts/rtmp-server-publish.sh output
+    runOnReadyRestart: yes

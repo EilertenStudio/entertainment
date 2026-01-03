@@ -1,0 +1,5 @@
+services:
+
+  rtmp-server:
+    environment:
+      PUBLISH_ON_TWITCH: 1
