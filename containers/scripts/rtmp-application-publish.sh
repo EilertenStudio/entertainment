@@ -1,6 +1,8 @@
 #!/bin/sh
 
-echo "[$MTX_PATH] Publish streaming to rtmp-server"
+. /srv/scripts/rtmp-common-utils.sh
+
+log "Publish streaming to rtmp-server"
 exec \
   ffmpeg -loglevel error -hide_banner \
     -i "rtmp://localhost:1935/$MTX_PATH" \

@@ -1,29 +1,29 @@
-logLevel: warn
+#logLevel: warn
 
 authInternalUsers:
   - user: any
     permissions:
       - action: read
-  - user: sha256:9AcGeiQ3BIWHsWan0RDAa+WNEccgf2zHuXE3W9KHW2o=
-    pass: sha256:PeTG9UuzDa3qYYU7bhzlwBGRK8ktdh+4xfwURXKz4xI=
+  - user: argon2:$argon2id$v=19$m=4096,t=3,p=1$c2FsdEl0V2l0aFNhbHQ$KH0TfKdjXVs5CQeVlK9HgIcbgTKieOR7lTAtcw8cJHE
+    pass: argon2:$argon2id$v=19$m=4096,t=3,p=1$c2FsdEl0V2l0aFNhbHQ$lfzy1ZQeRsFGMqLlo+4Mm084NeNQMvwqA5ojEYAcFsU
     permissions:
       - action: publish
 
 paths:
   application:
     source: publisher
-    runOnInit: sh /srv/scripts/rtmp-common-init.sh application
-    runOnReady: sh /srv/scripts/rtmp-server-switch.sh application
+    runOnInit: sh /srv/scripts/rtmp-common-init.sh
+    runOnReady: sh /srv/scripts/rtmp-server-switch.sh
     runOnReadyRestart: yes
 
   live:
     source: publisher
-    runOnInit: sh /srv/scripts/rtmp-common-init.sh live
-    runOnReady: sh /srv/scripts/rtmp-server-switch.sh live
+    runOnInit: sh /srv/scripts/rtmp-common-init.sh
+    runOnReady: sh /srv/scripts/rtmp-server-switch.sh
     runOnReadyRestart: yes
 
   output:
     source: publisher
-    runOnInit: sh /srv/scripts/rtmp-common-init.sh output
-    runOnReady: sh /srv/scripts/rtmp-server-publish.sh output
+    runOnInit: sh /srv/scripts/rtmp-common-init.sh
+    runOnReady: sh /srv/scripts/rtmp-server-publish.sh
     runOnReadyRestart: yes

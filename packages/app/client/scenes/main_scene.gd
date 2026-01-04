@@ -1,7 +1,7 @@
 extends Control
 
 @onready var client_manager: ClientManager = $Foreground/ClientManager
-@onready var world_scene: Node3D = $Background/SubViewport/Scene3D/WorldScene
+@onready var world_scene: Node3D = $Background/SubViewport/World/WorldScene
 
 #func _enter_tree() -> void:
 func _ready() -> void:

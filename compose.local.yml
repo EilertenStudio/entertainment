@@ -1,0 +1,9 @@
+services:
+
+  app-server:
+    ports:
+      - "39580:8080"
+
+  app-client:
+    ports:
+      - "39590:5900"

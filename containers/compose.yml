@@ -1,3 +1,11 @@
+secrets:
+  rtmp-server-credentials:
+    file: ../packages/rtmp/server/.env.credentials
+  rtmp-application-credentials:
+    file: ../packages/rtmp/application/.env.credentials
+  app-server-credentials:
+    file: ../packages/app/server/.env.credentials
+
 services:
 
   rtmp-server:
@@ -5,9 +13,7 @@ services:
     volumes:
       - ./entrypoints/rtmp-server.sh:/entrypoint.sh
       - ./configs/rtmp-server.yml:/mediamtx.yml
-      - ./scripts/rtmp-common-init.sh:/srv/scripts/rtmp-common-init.sh
-      - ./scripts/rtmp-server-switch.sh:/srv/scripts/rtmp-server-switch.sh
-      - ./scripts/rtmp-server-publish.sh:/srv/scripts/rtmp-server-publish.sh
+      - ./scripts:/srv/scripts
     ports:
 #      - "1935:1935" #RTMP
       - "39100:1935" #RTMP
@@ -39,11 +45,10 @@ services:
     volumes:
       - ./entrypoints/rtmp-application.sh:/entrypoint.sh
       - ./configs/rtmp-application.yml:/mediamtx.yml
-      - ./scripts/rtmp-common-init.sh:/srv/scripts/rtmp-common-init.sh
-      - ./scripts/rtmp-application-music.sh:/srv/scripts/rtmp-application-music.sh
-      - ./scripts/rtmp-application-compose.sh:/srv/scripts/rtmp-application-compose.sh
-      - ./scripts/rtmp-application-publish.sh:/srv/scripts/rtmp-application-publish.sh
+      - ./scripts:/srv/scripts
+      - ./storages/rtmp/application:/srv/storages
     ports:
+      - "39110:1935" #RTMP
       - "39111:8888" #HLS
     secrets:
       - rtmp-server-credentials
@@ -53,6 +58,11 @@ services:
     environment:
       RTMP_SERVER_CREDENTIALS_FILE: /run/secrets/rtmp-server-credentials
       RTMP_APPLICATION_CREDENTIALS_FILE: /run/secrets/rtmp-application-credentials
+      RTMP_APPLICATION_YOUTUBE_COOKIES_FILE: /srv/storages/cookies/www.youtube.com_cookies.txt
+      RTMP_APPLICATION_SOURCE_LOFI_MEDIEVAL_URL: https://www.youtube.com/watch?v=IxPANmjPaek
+      RTMP_APPLICATION_SOURCE_LOFI_HIPHOP_URL: https://www.twitch.tv/lofigirl
+      RTMP_APPLICATION_SOURCE_RADIO_MUSIC_DIR: /srv/storages/music
+      RTMP_APPLICATION_SOURCE_RADIO_FILE: /srv/storages/music/megamix_radio.mp3
     deploy:
       resources:
         limits:
@@ -90,6 +100,7 @@ services:
     volumes:
       - ./entrypoints/app-client.sh:/entrypoint.sh
       - ../packages/app/client:/runner
+#      - /runner/.godot
     secrets:
       - rtmp-application-credentials
     working_dir: /runner
@@ -110,11 +121,3 @@ services:
     depends_on:
       - app-server
       - rtmp-application
-
-secrets:
-  rtmp-server-credentials:
-    file: ../packages/rtmp/server/.env.credentials
-  rtmp-application-credentials:
-    file: ../packages/rtmp/application/.env.credentials
-  app-server-credentials:
-    file: ../packages/app/server/.env.credentials

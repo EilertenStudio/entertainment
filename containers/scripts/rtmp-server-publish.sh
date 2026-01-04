@@ -1,6 +1,6 @@
 #!/bin/sh
 
-STREAMING_PATH="$1"
+. /srv/scripts/rtmp-common-utils.sh
 
 publish_on_twitch() {
   ffmpeg -loglevel error -hide_banner \
@@ -11,6 +11,9 @@ publish_on_twitch() {
 }
 
 if [ "${PUBLISH_ON_TWITCH}" -eq 1 ]; then
-  echo "[$STREAMING_PATH] Publish on TWITCH enabled"
+  log "Publish on TWITCH enabled"
   publish_on_twitch
+else
+  log "No publishing. Waiting for 5 minutes..."
+  sleep 300000
 fi

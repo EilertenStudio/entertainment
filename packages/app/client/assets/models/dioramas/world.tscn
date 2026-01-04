@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://bmcsm02nnxn1g"]
+
+[ext_resource type="Texture2D" uid="uid://bxekpm6jxdevr" path="res://assets/models/dioramas/diorama001.aseprite" id="1_ps4yl"]
+[ext_resource type="Texture2D" uid="uid://giabqixddbrc" path="res://assets/models/dioramas/diorama002.png" id="2_pm3b7"]
+
+[node name="Diorama001" type="Node2D"]
+
+[node name="Diorama001" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(240, 136)
+texture = ExtResource("1_ps4yl")
+
+[node name="Diorama002" type="Sprite2D" parent="."]
+texture = ExtResource("2_pm3b7")
+centered = false

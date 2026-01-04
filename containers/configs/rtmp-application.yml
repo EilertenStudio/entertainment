@@ -1,11 +1,11 @@
-logLevel: warn
+#logLevel: warn
 
 authInternalUsers:
   - user: any
     permissions:
       - action: read
-  - user: sha256:pOeU3mwHgKRyZjt/B32/XA4TpkA6b43DIxhpngiKfsU=
-    pass: sha256:2pElOqUlbqhQdRlQwNSAzE/YHevuNpj44TYcj5QEllI=
+  - user: argon2:$argon2id$v=19$m=4096,t=3,p=1$c2FsdEl0V2l0aFNhbHQ$KH0TfKdjXVs5CQeVlK9HgIcbgTKieOR7lTAtcw8cJHE
+    pass: argon2:$argon2id$v=19$m=4096,t=3,p=1$c2FsdEl0V2l0aFNhbHQ$9FfvQXn7ULA/Ij7EJ2VOEaznGszWlY/PXUVBH/vwv7s
     permissions:
       - action: publish
 
@@ -17,9 +17,19 @@ paths:
     runOnReady: sh /srv/scripts/rtmp-application-compose.sh
     runOnReadyRestart: yes
 
-  source/music:
+#  source/music/lofi/medieval:
+#    source: publisher
+#    runOnInit: sh /srv/scripts/rtmp-application-source-youtube.sh $RTMP_APPLICATION_SOURCE_LOFI_MEDIEVAL_URL
+#    runOnInitRestart: true
+
+#  source/music/lofi/hiphop:
+#    source: publisher
+#    runOnInit: sh /srv/scripts/rtmp-application-source-twitch.sh $RTMP_APPLICATION_SOURCE_LOFI_HIPHOP_URL
+#    runOnInitRestart: true
+
+  source/radio:
     source: publisher
-    runOnInit: sh /srv/scripts/rtmp-application-music.sh
+    runOnInit: sh /srv/scripts/rtmp-application-source-radio.sh
     runOnInitRestart: true
 
   output:

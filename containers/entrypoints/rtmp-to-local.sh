@@ -4,9 +4,7 @@ echo "Recupero URL da Twitch per: $TWITCH_CHANNEL_NAME..."
 STREAM_QUALITY_BEST="best"
 STREAM_QUALITY_720p60fps="best[height<=720][fps<=30]/bestvideo[height<=720][fps<=30]+bestaudio/best"
 STREAM_URL=$(
-  yt-dlp \
-    --quiet \
-    --no-warnings \
+  yt-dlp --quiet --no-warnings \
     -f "$STREAM_QUALITY_BEST" \
     -g "https://www.twitch.tv/$TWITCH_CHANNEL_NAME"
 )

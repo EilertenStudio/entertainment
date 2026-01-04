@@ -2,7 +2,7 @@ extends Node2D
 
 func _ready() -> void:
 	# Sincronizza il motore con il framerate di FFmpeg
-	Engine.max_fps = 30 
+	Engine.max_fps = 30
 	
 	# Riduce la frequenza dei calcoli fisici (standard è 60)
 	Engine.physics_ticks_per_second = 30
@@ -18,7 +18,7 @@ func _ready() -> void:
 	OS.low_processor_usage_mode_sleep_usec = 6900
 	
 	# Disabilita il V-Sync (non supportato dal driver software Mesa)
-	DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
+	#DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
 	
 	# Nasconde il cursore via script (alternativa o rinforzo a FFmpeg)
-	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	#Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)

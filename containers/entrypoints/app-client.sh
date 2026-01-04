@@ -27,7 +27,11 @@ echo "[Xvfb] Clean up files"
 rm -f /tmp/.X99-lock
 
 echo "[Xvfb] Running display on :99..."
-Xvfb :99 -screen 0 1280x720x24 -ac +extension GLX +render -noreset &
+Xvfb :99 -screen 0 1920x1080x24 -ac +extension GLX +render -noreset &
+
+fluxbox &
+
+x11vnc -display :99 -nopw -forever -quiet &
 
 until xset -display :99 q > /dev/null 2>&1; do
     echo "[Xvfb] Waiting on :99..."
@@ -42,11 +46,11 @@ echo ""
 echo "-----------------------------------------------"
 echo "[FFmpeg] Running streaming server"
 (
+#    -video_size 1280x720 \
   ffmpeg -loglevel error -hide_banner \
     -f x11grab \
     -thread_queue_size 1024 \
     -draw_mouse 0 \
-    -video_size 1280x720 \
     -framerate 30 \
     -i :99.0 \
     -f pulse \

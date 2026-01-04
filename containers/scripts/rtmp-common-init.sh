@@ -1,3 +1,5 @@
 #!/bin/sh
 
-echo "[$MTX_PATH] Initialize streaming path"
+. /srv/scripts/rtmp-common-utils.sh
+
+log "Initialize streaming path"

@@ -12,7 +12,7 @@ run = [
 [tasks."start"]
 description = "Start project services"
 run = [
-  "mise //:container up"
+  "mise //:container --file compose.local.yml up"
 ]
 
 [tasks."start:prod"]
