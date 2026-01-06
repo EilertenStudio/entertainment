@@ -3,38 +3,21 @@ experimental_monorepo_root = true
 [settings]
 auto_install = true
 
-[tasks."build"]
-description = "Build project services"
-run = [
-  "mise //:container build"
-]
-
-[tasks."start"]
-description = "Start project services"
-run = [
-  "mise //:container --file compose.local.yml up"
-]
-
-[tasks."start:prod"]
-description = "Start project services in production mode"
-run = [
-  "mise //:container --file compose.production.yml up"
-]
-
-[tasks."stop"]
-description = "Stop project services"
-run = [
-  "mise //:container down"
-]
-
-[tasks."logs"]
-description = "Show logs of project services"
-run = [
-  "mise //:container logs"
-]
-
 [tasks."container"]
 description = "Get access to container CLI"
 run = [
   "docker compose --file ./compose.yml"
+]
+hide = true
+
+[tasks."container:local"]
+description = "Get access to container CLI with local configuration"
+run = [
+  "mise //:container --file compose.local.yml"
+]
+
+[tasks."container:prod"]
+description = "Get access to container CLI with production configuration"
+run = [
+  "mise //:container --file compose.production.yml"
 ]
