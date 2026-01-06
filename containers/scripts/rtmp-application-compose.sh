@@ -48,5 +48,6 @@ while true; do
       -c:a aac -b:a $A_BITRATE -ar 44100 \
       -f flv "rtmp://localhost:1935/output?user=${RTMP_APPLICATION_USERNAME}&pass=${RTMP_APPLICATION_PASSWORD}"
 
+    log "Finish ffmpeg process. Restarting in 2s ..."
     sleep 2
 done
