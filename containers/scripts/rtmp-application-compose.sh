@@ -44,7 +44,7 @@ while true; do
       -map 0:v -map "[aout]" \
       -c:v libx264 -preset veryfast \
       -b:v $V_BITRATE -maxrate $V_BITRATE -bufsize $BUF_SIZE \
-      -pix_fmt yuv420p -g 60 \
+      -pix_fmt yuv420p -g 60 \9
       -c:a aac -b:a $A_BITRATE -ar 44100 \
       -f flv "rtmp://localhost:1935/output?user=${RTMP_APPLICATION_USERNAME}&pass=${RTMP_APPLICATION_PASSWORD}"
 

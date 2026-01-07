@@ -7,6 +7,7 @@ enum State {
 
 static var client_socket = WebSocketPeer.new()
 
+@export var client_connection_url_env := "APP_SERVER_URL"
 @export var client_connection_url := "ws://127.0.0.1:8080"
 @onready var client_connection_info := $ClientController/ConnectionInfo
 @onready var client_connection_state_reconnect_button := $ClientController/Reconnect
@@ -21,13 +22,17 @@ static var client_socket = WebSocketPeer.new()
 @export var client_users: Dictionary
 
 func _ready() -> void:
-	# == Inizialive variables
-	if OS.has_environment("WS_SERVER_URL"):
-		client_connection_url = OS.get_environment("WS_SERVER_URL")
+	if process_mode == ProcessMode.PROCESS_MODE_DISABLED: return
+	
+	# == Initialize variables
+	if OS.has_environment(client_connection_url_env):
+		client_connection_url = OS.get_environment(client_connection_url_env)
 	print("Client connection set to %s" % client_connection_url)
+	
 	# == Inizialize features
 	client_configuration_init(true)
 	client_users_init(true)
+	
 	# == Initialize nodes
 	client_connection_state_reconnect_button.connect('button_down', func():
 		client_connection_state_set(WebSocketPeer.STATE_CLOSED)
@@ -41,7 +46,8 @@ func _ready() -> void:
 		client_users_fetch(true)
 		pass
 	)
-	# == Applu configurations
+	
+	# == Apply configurations
 	if client_autoconnect:
 		client_state = State.CONNECTED
 	pass

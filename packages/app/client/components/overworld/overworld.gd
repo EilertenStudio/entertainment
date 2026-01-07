@@ -35,10 +35,10 @@ func tile_map_layer_child_init(node: TileMapLayer):
 	node.connect("renamed", func():
 		tile_map_layer_child_update(node)
 	)
-	print("Connected to 'visibility_changed' signal for %s" % node.name)
-	node.connect("visibility_changed", func():
-		tile_map_layer_child_update(node)
-	)
+	#print("Connected to 'visibility_changed' signal for %s" % node.name)
+	#node.connect("visibility_changed", func():
+		#tile_map_layer_child_update(node)
+	#)
 	
 func tile_map_layer_child_update(node: Node):
 	print("Updating TileMapLayer: %s" % node)

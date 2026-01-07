@@ -2,5 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cdkiffriasw0g" path="res://features/settings/settings_manager.gd" id="1_u66i6"]
 
-[node name="SettingsManager" type="Node2D"]
+[node name="SettingsManager" type="Control"]
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("1_u66i6")

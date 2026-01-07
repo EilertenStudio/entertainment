@@ -1,9 +1,13 @@
 #logLevel: warn
 
+metrics: yes
+metricsAddress: :9998
+
 authInternalUsers:
   - user: any
     permissions:
       - action: read
+      - action: metrics
   - user: argon2:$argon2id$v=19$m=4096,t=3,p=1$c2FsdEl0V2l0aFNhbHQ$KH0TfKdjXVs5CQeVlK9HgIcbgTKieOR7lTAtcw8cJHE
     pass: argon2:$argon2id$v=19$m=4096,t=3,p=1$c2FsdEl0V2l0aFNhbHQ$lfzy1ZQeRsFGMqLlo+4Mm084NeNQMvwqA5ojEYAcFsU
     permissions:

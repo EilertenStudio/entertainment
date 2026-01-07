@@ -27,13 +27,20 @@ paths:
 #    runOnInit: sh /srv/scripts/rtmp-application-source-twitch.sh $RTMP_APPLICATION_SOURCE_LOFI_HIPHOP_URL
 #    runOnInitRestart: true
 
-  source/radio:
-    source: publisher
-    runOnInit: sh /srv/scripts/rtmp-application-source-radio.sh
-    runOnInitRestart: true
+#  source/radio:
+#    source: publisher
+#    runOnInit: sh /srv/scripts/rtmp-application-source-radio.sh
+#    runOnInitRestart: true
 
   output:
     source: publisher
     runOnInit: sh /srv/scripts/rtmp-common-init.sh
+    runOnReady: sh /srv/scripts/rtmp-application-publish.sh
+    runOnReadyRestart: yes
+
+  live:
+    source: publisher
+    runOnInit: sh /srv/scripts/rtmp-application-source-radio.sh
+    runOnInitRestart: true
     runOnReady: sh /srv/scripts/rtmp-application-publish.sh
     runOnReadyRestart: yes

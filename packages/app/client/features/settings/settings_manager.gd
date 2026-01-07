@@ -1,24 +1,29 @@
-extends Node2D
+extends Control
 
 func _ready() -> void:
-	# Sincronizza il motore con il framerate di FFmpeg
+	if process_mode == ProcessMode.PROCESS_MODE_DISABLED: return
+	
+	print("[SettingManager] Update Godot settings!")
+	
+	# --- GESTIONE CPU / FPS ---
+	# Forza il limite dei frame (massimo risparmio per VPS)
 	Engine.max_fps = 30
-	
-	# Riduce la frequenza dei calcoli fisici (standard è 60)
-	Engine.physics_ticks_per_second = 30
-	
-	# Previene picchi di calcolo della fisica in caso di lag
-	Engine.max_physics_steps_per_frame = 2
-	
-	# Attiva la modalità a basso consumo (ideale per VPS/Headless)
-	OS.low_processor_usage_mode = true
-	
-	# Imposta un tempo di "riposo" (in microsecondi) tra i frame
-	# 6900 µs è un buon valore per i 30 FPS
-	OS.low_processor_usage_mode_sleep_usec = 6900
-	
-	# Disabilita il V-Sync (non supportato dal driver software Mesa)
-	#DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
-	
-	# Nasconde il cursore via script (alternativa o rinforzo a FFmpeg)
-	#Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+
+	# Low Processor Mode: Non renderizza se nulla si muove
+	#OS.low_processor_usage_mode = true
+	# Tempo di sleep tra i frame (in microsecondi)
+	#OS.low_processor_usage_mode_sleep_usec = 20000 
+
+	# --- RENDERING QUALITY ---
+	# Disabilita V-Sync per non aspettare il monitor virtuale di Xvfb
+	DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
+
+	# Disabilita Anti-Aliasing che peserebbe sulla CPU (Software Rasterizer)
+	get_viewport().msaa_2d = Viewport.MSAA_DISABLED
+
+	# Disabilita il rendering 3D (anche se sei in una scena 2D)
+	get_viewport().get_window().disable_3d = true
+
+	# --- DEBUG INFO ---
+	print("[SettingManager] Low Processor Mode: ", OS.low_processor_usage_mode)
+	print("[SettingManager] Max FPS set to: ", Engine.max_fps)

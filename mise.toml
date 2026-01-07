@@ -19,5 +19,5 @@ run = [
 [tasks."container:prod"]
 description = "Get access to container CLI with production configuration"
 run = [
-  "mise //:container --file compose.production.yml"
+  "mise //:container --file compose.prod.yml"
 ]
