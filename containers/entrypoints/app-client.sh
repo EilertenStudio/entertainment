@@ -24,7 +24,7 @@ pulseaudio_start() {
     # Nota: Non esportare il PID qui perché con -D il PID di shell muore subito
     pulseaudio -D --exit-idle-time=-1 --system=false --disallow-exit --disable-shm
 
-    local timeout=10
+    timeout=10
     while ! pactl info >/dev/null 2>&1; do
         echo "[Pulseaudio] Waiting for server..."
         sleep 1
@@ -148,7 +148,7 @@ echo "-----------------------------------------------"
 
 pulseaudio_start
 xvfb_start
-ffmpeg_start
+#ffmpeg_start
 godot_start
 
 echo "-----------------------------------------------"

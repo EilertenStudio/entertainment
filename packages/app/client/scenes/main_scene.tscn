@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cfkfxl8h7lxnx"]
+[gd_scene load_steps=9 format=3 uid="uid://cfkfxl8h7lxnx"]
 
 [ext_resource type="Script" uid="uid://d27x87ltwinwb" path="res://scenes/main_scene.gd" id="1_c16ls"]
 [ext_resource type="PackedScene" uid="uid://cjdqy37jfat77" path="res://assets/models/world/world.tscn" id="2_7ykc4"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bmcsm02nnxn1g" path="res://assets/models/dioramas/world.tscn" id="4_gubc5"]
 [ext_resource type="PackedScene" uid="uid://bul15xx4opq2y" path="res://components/overworld/Overworld.tscn" id="5_rt2n2"]
 [ext_resource type="PackedScene" uid="uid://duj1joqbduoat" path="res://features/music/music_manager.tscn" id="7_c16ls"]
+[ext_resource type="PackedScene" uid="uid://bl0fys7hfj57b" path="res://features/streaming/streaming_manager.tscn" id="8_18nlu"]
 
 [node name="Main" type="Control"]
 layout_mode = 3
@@ -69,5 +70,9 @@ visible = false
 layout_mode = 0
 playlist_autorun = true
 player_volume_db = -26.6
+
+[node name="StreamingManager" parent="Foreground" instance=ExtResource("8_18nlu")]
+layout_mode = 0
+streaming_process_state = 0
 
 [editable path="Background/SubViewport/World/WorldScene"]

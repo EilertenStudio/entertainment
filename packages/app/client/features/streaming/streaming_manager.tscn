@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bl0fys7hfj57b"]
+
+[ext_resource type="Script" uid="uid://ysjexltqe1ci" path="res://features/streaming/streaming_manager.gd" id="1_lk8vi"]
+
+[node name="StreamingManager" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_lk8vi")
