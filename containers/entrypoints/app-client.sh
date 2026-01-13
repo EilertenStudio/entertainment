@@ -18,34 +18,34 @@ pulseaudio_start() {
   echo "-----------------------------------------------"
   echo "[Pulseaudio] Clean up files"
   rm -rf /var/run/pulse /var/lib/pulse /root/.config/pulse
-    rm -f /tmp/pulse-* # Pulisce anche i socket temporanei
+  rm -rf /tmp/pulse-* # Pulisce anche i socket temporanei
 
-    echo "[Pulseaudio] Running audio..."
-    # Nota: Non esportare il PID qui perché con -D il PID di shell muore subito
-    pulseaudio -D --exit-idle-time=-1 --system=false --disallow-exit --disable-shm
+  echo "[Pulseaudio] Running audio..."
+  # Nota: Non esportare il PID qui perché con -D il PID di shell muore subito
+  pulseaudio -D --exit-idle-time=-1 --system=false --disallow-exit --disable-shm
 
-    timeout=10
-    while ! pactl info >/dev/null 2>&1; do
-        echo "[Pulseaudio] Waiting for server..."
-        sleep 1
-        ((timeout--))
-        if [ $timeout -le 0 ]; then echo "[ERR] PulseAudio failed to start"; return 1; fi
-    done
+  timeout=10
+  while ! pactl info >/dev/null 2>&1; do
+      echo "[Pulseaudio] Waiting for server..."
+      sleep 1
+      ((timeout--))
+      if [ $timeout -le 0 ]; then echo "[ERR] PulseAudio failed to start"; return 1; fi
+  done
 
-    echo "[Pulseaudio] Configuring modules..."
+  echo "[Pulseaudio] Configuring modules..."
 
-    # Carica il null-sink
-    pactl load-module module-null-sink sink_name=VirtualSink sink_properties=device.description="Virtual_Output"
+  # Carica il null-sink
+  pactl load-module module-null-sink sink_name=VirtualSink sink_properties=device.description="Virtual_Output"
 
-    # Disabilita il suspend (spostato qui per sicurezza dopo il caricamento del sink)
-    pactl load-module module-suspend-on-idle timeout=0 || echo "[WARN] Suspend module already loaded or failed, ignoring."
+  # Disabilita il suspend (spostato qui per sicurezza dopo il caricamento del sink)
+  pactl load-module module-suspend-on-idle timeout=0 || echo "[WARN] Suspend module already loaded or failed, ignoring."
 
-    # Imposta default e volumi
-    pactl set-default-sink VirtualSink
-    pactl set-sink-mute VirtualSink false
-    pactl set-sink-volume VirtualSink 100%
+  # Imposta default e volumi
+  pactl set-default-sink VirtualSink
+  pactl set-sink-mute VirtualSink false
+  pactl set-sink-volume VirtualSink 100%
 
-    echo "[Pulseaudio] OK"
+  echo "[Pulseaudio] OK"
 }
 
 xvfb_start() {

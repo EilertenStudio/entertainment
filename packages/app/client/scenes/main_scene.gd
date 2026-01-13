@@ -2,10 +2,11 @@ extends Control
 
 @onready var client_manager: ClientManager = $Foreground/ClientManager
 @onready var world_scene: Node3D = $Background/SubViewport/World/WorldScene
+@onready var log_manager: LogManager = $Foreground/LogManager
 
 #func _enter_tree() -> void:
 func _ready() -> void:
-	print("Connect to client_state_connected")
+	Log.trace(self, "Connect to client_state_connected")
 	client_manager.connect("client_state_connected", func():
 		print("Fetching client configuration")
 		client_manager.client_configuration_fetch()
@@ -13,7 +14,7 @@ func _ready() -> void:
 		client_manager.client_users_fetch()
 		pass
 	)
-	print("Connect to client_user_join")
+	Log.trace(self, "Connect to client_user_join")
 	client_manager.connect("client_user_join", func(user):
 		var spawner = world_room_spawner_find(user.room.id, user.room.slot)
 		if spawner:
@@ -24,7 +25,7 @@ func _ready() -> void:
 			printerr("Spawner not found")
 		pass
 	)
-	print("Connect to client_user_leave")
+	Log.trace(self, "Connect to client_user_leave")
 	client_manager.connect("client_user_leave", func(user):
 		var spawner = world_room_spawner_find(user.room.id, user.room.slot)
 		if spawner:

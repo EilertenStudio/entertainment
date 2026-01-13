@@ -1,4 +1,4 @@
-extends Control
+class_name SettingsManager extends Control
 
 func _ready() -> void:
 	if process_mode == ProcessMode.PROCESS_MODE_DISABLED: return

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://buwwpsbe5fsra"
-path="res://.godot/imported/overworld-tilesheet-v4.png-253b71f03a22351d00439db8a97c6446.ctex"
+uid="uid://b0cytox2dm6em"
+path="res://.godot/imported/overworld-tilesheet-v3.png-c1dea869e2d71e36552e19303a5c4756.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://components/overworld/overworld-tilesheet-v4.png"
-dest_files=["res://.godot/imported/overworld-tilesheet-v4.png-253b71f03a22351d00439db8a97c6446.ctex"]
+source_file="res://components/overworld/assets/tilesets/v1/overworld-tilesheet-v3.png"
+dest_files=["res://.godot/imported/overworld-tilesheet-v3.png-c1dea869e2d71e36552e19303a5c4756.ctex"]
 
 [params]
 
