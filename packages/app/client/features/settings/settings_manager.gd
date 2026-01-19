@@ -3,7 +3,7 @@ class_name SettingsManager extends Control
 func _ready() -> void:
 	if process_mode == ProcessMode.PROCESS_MODE_DISABLED: return
 	
-	print("[SettingManager] Update Godot settings!")
+	Log.info(self, "Updating Godot settings!")
 	
 	# --- GESTIONE CPU / FPS ---
 	# Forza il limite dei frame (massimo risparmio per VPS)
@@ -25,5 +25,5 @@ func _ready() -> void:
 	get_viewport().get_window().disable_3d = true
 
 	# --- DEBUG INFO ---
-	print("[SettingManager] Low Processor Mode: ", OS.low_processor_usage_mode)
-	print("[SettingManager] Max FPS set to: ", Engine.max_fps)
+	Log.info(self, "Low Processor Mode: %s" % OS.low_processor_usage_mode)
+	Log.info(self, "Max FPS set to: %s" % Engine.max_fps)

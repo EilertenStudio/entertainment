@@ -54,18 +54,18 @@ static func _log(level: Level, handler: Variant, message: String):
 		Level.WARN:
 			color = "#edd132"
 		Level.INFO:
-			color = "#9badb7"
+			color = "#32c1ed"
 		Level.DEBUG:
 			color = "#7ab32b"
 		Level.EVENT:
 			color = "#e68e37"
 		Level.TRACE:
-			color = "#32c1ed"
+			color = "#8080f9"
 	
 	match level:
 		#Level.ERROR:
 			#printerr(formatted_msg)
-		Level.INFO:
-			print(formatted_msg)
+		#Level.INFO:
+			#print(formatted_msg)
 		_:
 			print_rich("[color=%s]%s[/color]" % [color, formatted_msg])

@@ -1,5 +1,13 @@
 #!/bin/sh
 
+#SCREEN_RESOLUTION="320x180"
+#SCREEN_RESOLUTION="640x360"
+SCREEN_RESOLUTION="1280x720"
+#SCREEN_RESOLUTION="1920x1080"
+
+#SCREEN_BIT="16"
+SCREEN_BIT="24"
+
 load_credentials() {
   echo "Loading credentials from ${1}"
     set -a
@@ -60,8 +68,8 @@ xvfb_start() {
 #  Xvfb :99 -screen 0 1920x1080x24 -ac +extension GLX +render -noreset &
 
   echo "-----------------------------------------------"
-  echo "[Xvfb] Running optimized display on :99 (320x180x16)..."
-  Xvfb :99 -screen 0 320x180x16 -ac +extension GLX +render -noreset &
+  echo "[Xvfb] Running optimized display on :99 (${SCREEN_RESOLUTION}x${SCREEN_BIT})..."
+  Xvfb :99 -screen 0 ${SCREEN_RESOLUTION}x${SCREEN_BIT} -ac +extension GLX +render -noreset &
 
   export XVFB_PID=$!
 
@@ -92,7 +100,7 @@ ffmpeg_start() {
     ffmpeg -loglevel error -hide_banner \
       -fflags nobuffer \
       -f x11grab \
-      -video_size 320x180 \
+      -video_size ${SCREEN_RESOLUTION} \
       -framerate 30 \
       -draw_mouse 0 \
       -i :99.0 \

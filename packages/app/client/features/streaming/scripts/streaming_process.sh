@@ -1,5 +1,14 @@
 #!/bin/sh
 
+#SCREEN_RESOLUTION="320x180"
+#SCREEN_RESOLUTION="640x360"
+SCREEN_RESOLUTION="1280x720"
+#SCREEN_RESOLUTION="1920x1080"
+
+#SCREEN_FPS="15"
+SCREEN_FPS="30"
+#SCREEN_FPS="60"
+
 rtmp_output_url_get() {
   echo "$RTMP_SERVER_URL?user=${RTMP_SERVER_USERNAME}&pass=${RTMP_SERVER_PASSWORD}"
 }
@@ -9,13 +18,12 @@ rtmp_process_start() {
   nohup ffmpeg -loglevel error -hide_banner \
     -fflags nobuffer \
     -f x11grab \
-    -video_size 320x180 \
-    -framerate 30 \
+    -video_size "${SCREEN_RESOLUTION}" \
+    -framerate ${SCREEN_FPS} \
     -draw_mouse 0 \
     -i :99.0 \
     -f pulse \
     -i "VirtualSink.monitor" \
-    -vf "scale=1920:1080:flags=neighbor" \
     -c:v libx264 \
     -preset ultrafast \
     -b:v 3000k \

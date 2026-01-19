@@ -1,0 +1,38 @@
+[gd_resource type="TileSet" load_steps=7 format=3 uid="uid://dkgswdmqgivpj"]
+
+[ext_resource type="Texture2D" uid="uid://cfd6pgqrwh8ev" path="res://components/sandbox/sandbox-spritesheet.png" id="1_m4b1h"]
+[ext_resource type="Texture2D" uid="uid://r3be2wshxy28" path="res://components/sandbox/sandbox-spritesheet-texture.tres" id="2_dydqe"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oq00r"]
+atlas = ExtResource("1_m4b1h")
+region = Rect2(0, 0, 128, 32)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dydqe"]
+resource_name = "ground"
+texture = SubResource("AtlasTexture_oq00r")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, 8)
+1:0/0 = 0
+1:0/0/texture_origin = Vector2i(0, 8)
+2:0/next_alternative_id = 2
+2:0/0 = 0
+2:0/0/texture_origin = Vector2i(0, 8)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_dydqe"]
+polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ckt73"]
+resource_name = "obstacles"
+texture = ExtResource("2_dydqe")
+texture_region_size = Vector2i(32, 32)
+3:0/0 = 0
+3:0/0/texture_origin = Vector2i(0, 8)
+3:0/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_dydqe")
+
+[resource]
+tile_shape = 1
+tile_size = Vector2i(32, 16)
+occlusion_layer_0/light_mask = 1
+sources/0 = SubResource("TileSetAtlasSource_dydqe")
+sources/1 = SubResource("TileSetAtlasSource_ckt73")

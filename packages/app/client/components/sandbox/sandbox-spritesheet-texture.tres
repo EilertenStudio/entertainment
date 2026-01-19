@@ -1,0 +1,16 @@
+[gd_resource type="CanvasTexture" load_steps=4 format=3 uid="uid://r3be2wshxy28"]
+
+[ext_resource type="Texture2D" uid="uid://cfd6pgqrwh8ev" path="res://components/sandbox/sandbox-spritesheet.png" id="1_gameq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b5iof"]
+resource_local_to_scene = true
+atlas = ExtResource("1_gameq")
+region = Rect2(0, 0, 160, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dydqe"]
+atlas = ExtResource("1_gameq")
+region = Rect2(0, 32, 128, 31.923)
+
+[resource]
+diffuse_texture = SubResource("AtlasTexture_b5iof")
+normal_texture = SubResource("AtlasTexture_dydqe")

@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bn1taiis8e83p"]
+
+[ext_resource type="PackedScene" uid="uid://c2qegankicvp8" path="res://components/overworld/floating_islands/overworld-floating_island.tscn" id="3_j810n"]
+
+[node name="Overworld" type="Node2D"]
+
+[node name="FloatingIsland" parent="." instance=ExtResource("3_j810n")]
