@@ -1,0 +1,374 @@
+[gd_scene load_steps=3 format=4 uid="uid://c2qegankicvp8"]
+
+[ext_resource type="Script" uid="uid://vcr0djhdtomv" path="res://features/tile_map/tile_map_isometric.gd" id="1_guyr8"]
+[ext_resource type="TileSet" uid="uid://b4aaprhl26uqn" path="res://components/overworld/v4/floating_islands/overworld-floating_island.tres" id="1_w6u14"]
+
+[node name="FloatingIsland" type="TileMapLayer"]
+enabled = false
+tile_set = ExtResource("1_w6u14")
+script = ExtResource("1_guyr8")
+tile_map_layer_offset = Vector2i(0, 8)
+metadata/_custom_type_script = "uid://vcr0djhdtomv"
+
+[node name="F_0_Z0" type="TileMapLayer" parent="."]
+y_sort_enabled = true
+enabled = false
+tile_set = ExtResource("1_w6u14")
+script = ExtResource("1_guyr8")
+tile_map_layer_offset = Vector2i(0, 8)
+metadata/_custom_type_script = "uid://vcr0djhdtomv"
+
+[node name="Layer_Z0" type="TileMapLayer" parent="F_0_Z0"]
+y_sort_enabled = true
+tile_map_data = PackedByteArray("AAD//wAAAAATAAAAAAD/////AAAUAAAAAAA=")
+tile_set = ExtResource("1_w6u14")
+
+[node name="Layer_Z1" type="TileMapLayer" parent="F_0_Z0"]
+z_index = 1
+y_sort_enabled = true
+position = Vector2(0, -8)
+tile_map_data = PackedByteArray("AAD//wAAAAATAAAAAAD/////AAAUAAAAAAA=")
+tile_set = ExtResource("1_w6u14")
+
+[node name="Layer_Z2" type="TileMapLayer" parent="F_0_Z0"]
+z_index = 2
+y_sort_enabled = true
+position = Vector2(0, -16)
+tile_map_data = PackedByteArray("AAD//wAAAAATAAAAAAD/////AAAUAAAAAAA=")
+tile_set = ExtResource("1_w6u14")
+
+[node name="Layer_Z3" type="TileMapLayer" parent="F_0_Z0"]
+z_index = 3
+y_sort_enabled = true
+position = Vector2(0, -24)
+tile_map_data = PackedByteArray("AAD//wAAAAATAAAAAAD/////AAAUAAAAAAA=")
+tile_set = ExtResource("1_w6u14")
+
+[node name="Layer_Z4" type="TileMapLayer" parent="F_0_Z0"]
+z_index = 4
+y_sort_enabled = true
+position = Vector2(0, -32)
+tile_map_data = PackedByteArray("AAD//wAAAAATAAAAAAD/////AAAUAAAAAAA=")
+tile_set = ExtResource("1_w6u14")
+
+[node name="Layer_Z5" type="TileMapLayer" parent="F_0_Z0"]
+z_index = 5
+y_sort_enabled = true
+position = Vector2(0, -40)
+tile_map_data = PackedByteArray("AAD//wAAAAATAAAAAAD/////AAAUAAAAAAA=")
+tile_set = ExtResource("1_w6u14")
+
+[node name="Layer_Z6" type="TileMapLayer" parent="F_0_Z0"]
+z_index = 6
+y_sort_enabled = true
+position = Vector2(0, -48)
+tile_map_data = PackedByteArray("AAD//wAAAAATAAAAAAD/////AAAUAAAAAAA=")
+tile_set = ExtResource("1_w6u14")
+
+[node name="Layer_Z7" type="TileMapLayer" parent="F_0_Z0"]
+z_index = 7
+y_sort_enabled = true
+position = Vector2(0, -56)
+tile_map_data = PackedByteArray("AAD//wAAAAATAAAAAAD/////AAAUAAAAAAA=")
+tile_set = ExtResource("1_w6u14")
+
+[node name="Layer_Z8" type="TileMapLayer" parent="F_0_Z0"]
+z_index = 8
+y_sort_enabled = true
+position = Vector2(0, -64)
+tile_map_data = PackedByteArray("AAD//wAAAAATAAAAAAD/////AAAUAAAAAAA=")
+tile_set = ExtResource("1_w6u14")
+
+[node name="Layer_Z9" type="TileMapLayer" parent="F_0_Z0"]
+z_index = 9
+y_sort_enabled = true
+position = Vector2(0, -72)
+tile_map_data = PackedByteArray("AAD//wAAAAATAAAAAAD/////AAAUAAAAAAA=")
+tile_set = ExtResource("1_w6u14")
+
+[node name="I_1_Z5" type="TileMapLayer" parent="."]
+z_index = 5
+y_sort_enabled = true
+position = Vector2(0, -40)
+enabled = false
+tile_set = ExtResource("1_w6u14")
+script = ExtResource("1_guyr8")
+tile_map_layer_offset = Vector2i(0, 8)
+metadata/_custom_type_script = "uid://vcr0djhdtomv"
+
+[node name="Layer_Z0" type="TileMapLayer" parent="I_1_Z5"]
+z_index = 5
+y_sort_enabled = true
+position = Vector2(0, -40)
+tile_map_data = PackedByteArray("AAD//wAAAAATAAAAAAD/////AAAUAAAAAAA=")
+tile_set = ExtResource("1_w6u14")
+
+[node name="Layer_Z1" type="TileMapLayer" parent="I_1_Z5"]
+z_index = 6
+y_sort_enabled = true
+position = Vector2(0, -48)
+tile_map_data = PackedByteArray("AAD//wAAAAATAAAAAAD/////AAAUAAAAAAA=")
+tile_set = ExtResource("1_w6u14")
+
+[node name="Layer_Z2" type="TileMapLayer" parent="I_1_Z5"]
+z_index = 7
+y_sort_enabled = true
+position = Vector2(0, -56)
+tile_map_data = PackedByteArray("AAD//wAAAAATAAAAAAD/////AAAUAAAAAAA=")
+tile_set = ExtResource("1_w6u14")
+
+[node name="Layer_Z3" type="TileMapLayer" parent="I_1_Z5"]
+z_index = 8
+y_sort_enabled = true
+position = Vector2(0, -64)
+tile_map_data = PackedByteArray("AAD//wAAAAATAAAAAAD/////AAAUAAAAAAA=")
+tile_set = ExtResource("1_w6u14")
+
+[node name="Layer_Z4" type="TileMapLayer" parent="I_1_Z5"]
+z_index = 9
+y_sort_enabled = true
+position = Vector2(0, -72)
+tile_map_data = PackedByteArray("AAD//wAAAAATAAAAAAD/////AAAUAAAAAAD+/wEAAAACAAAAAAD+/wAAAAAAAAAAAAD+////AAAAAAAAAAD9//7/AAAAAAAAAAD8////AAAAAAAAAAD8/wAAAAAAAAAAAAD8//7/AAACAAAAAAD9/wEAAAAAAAAAAAA=")
+tile_set = ExtResource("1_w6u14")
+
+[node name="Layer_Z5" type="TileMapLayer" parent="I_1_Z5"]
+z_index = 10
+y_sort_enabled = true
+position = Vector2(0, -80)
+tile_map_data = PackedByteArray("AAD//wAAAAATAAAAAAD+/wAAAAAEAAAAAAD+/wEAAAAEAAAAAAD+////AAAEAAAAAAD9/wAAAAAEAAAAAAD9////AAAEAAAAAAD8////AAAEAAAAAAD8/wAAAAAEAAAAAAD/////AAAUAAAAAAD8//7/AAAEAAAAAAD9//7/AAAEAAAAAAD+//7/AAAEAAAAAAD9/wEAAAAEAAAAAAA=")
+tile_set = ExtResource("1_w6u14")
+
+[node name="Layer_Z6" type="TileMapLayer" parent="I_1_Z5"]
+z_index = 11
+y_sort_enabled = true
+position = Vector2(0, -88)
+tile_map_data = PackedByteArray("AAD9/wAAAAAFAAAAAAD9////AAAJAAAAAAD+////AAASAAAAAAD8//7/AAAEAAAAAAD9//7/AAAEAAAAAAD+//7/AAAFAAAAAAD+/wEAAAAFAAAAAAD8////AAAEAAAAAAD8/wAAAAAFAAAAAAD9/wEAAAAFAAAAAAD+/wAAAAARAAAAAAA=")
+tile_set = ExtResource("1_w6u14")
+
+[node name="Layer_Z7" type="TileMapLayer" parent="I_1_Z5"]
+z_index = 12
+y_sort_enabled = true
+position = Vector2(0, -96)
+tile_map_data = PackedByteArray("AAD8//7/AAAFAAAAAAD8////AAAFAAAAAAD9//7/AAAFAAAAAAA=")
+tile_set = ExtResource("1_w6u14")
+
+[node name="I_2_Z5" type="TileMapLayer" parent="."]
+z_index = 5
+y_sort_enabled = true
+position = Vector2(0, -40)
+enabled = false
+tile_set = ExtResource("1_w6u14")
+script = ExtResource("1_guyr8")
+tile_map_layer_offset = Vector2i(0, 8)
+metadata/_custom_type_script = "uid://vcr0djhdtomv"
+
+[node name="Layer_Z7" type="TileMapLayer" parent="I_2_Z5"]
+z_index = 12
+y_sort_enabled = true
+position = Vector2(0, -96)
+tile_map_data = PackedByteArray("AAD9////AAAIAAAAAAA=")
+tile_set = ExtResource("1_w6u14")
+
+[node name="Layer_Z8" type="TileMapLayer" parent="I_2_Z5"]
+z_index = 13
+y_sort_enabled = true
+position = Vector2(0, -104)
+tile_map_data = PackedByteArray("AAD9////AAAIAAAAAAA=")
+tile_set = ExtResource("1_w6u14")
+
+[node name="Layer_Z9" type="TileMapLayer" parent="I_2_Z5"]
+z_index = 14
+y_sort_enabled = true
+position = Vector2(0, -112)
+tile_map_data = PackedByteArray("AAD9////AAAIAAAAAAA=")
+tile_set = ExtResource("1_w6u14")
+
+[node name="Layer_Z10" type="TileMapLayer" parent="I_2_Z5"]
+z_index = 15
+y_sort_enabled = true
+position = Vector2(0, -120)
+tile_map_data = PackedByteArray("AAD9////AAAIAAAAAAA=")
+tile_set = ExtResource("1_w6u14")
+
+[node name="Layer_Z11" type="TileMapLayer" parent="I_2_Z5"]
+z_index = 16
+y_sort_enabled = true
+position = Vector2(0, -128)
+tile_map_data = PackedByteArray("AAD9////AAAIAAAAAAA=")
+tile_set = ExtResource("1_w6u14")
+
+[node name="Layer_Z12" type="TileMapLayer" parent="I_2_Z5"]
+z_index = 17
+y_sort_enabled = true
+position = Vector2(0, -136)
+tile_map_data = PackedByteArray("AAD9////AAAIAAAAAAA=")
+tile_set = ExtResource("1_w6u14")
+
+[node name="Layer_Z13" type="TileMapLayer" parent="I_2_Z5"]
+z_index = 18
+y_sort_enabled = true
+position = Vector2(0, -144)
+tile_map_data = PackedByteArray("AAD9////AAAIAAAAAAA=")
+tile_set = ExtResource("1_w6u14")
+
+[node name="Layer_Z14" type="TileMapLayer" parent="I_2_Z5"]
+z_index = 19
+y_sort_enabled = true
+position = Vector2(0, -152)
+tile_map_data = PackedByteArray("AAD9////AAAIAAAAAAD8////AAAAAAAAAAA=")
+tile_set = ExtResource("1_w6u14")
+
+[node name="Layer_Z15" type="TileMapLayer" parent="I_2_Z5"]
+z_index = 20
+y_sort_enabled = true
+position = Vector2(0, -160)
+tile_map_data = PackedByteArray("AAD8////AAAEAAAAAAD7/wAAAAAEAAAAAAD8/wAAAAAEAAAAAAD+//v/AAAEAAAAAAD+//z/AAAEAAAAAAD+//3/AAAEAAAAAAD+//7/AAAEAAAAAAAAAP//AAAEAAAAAAABAP//AAAEAAAAAAACAP//AAAEAAAAAAD///r/AAAEAAAAAAD///v/AAAEAAAAAAD///z/AAAEAAAAAAD///3/AAAEAAAAAAD///7/AAAEAAAAAAAAAPr/AAAEAAAAAAAAAPv/AAAEAAAAAAAAAPz/AAAEAAAAAAAAAP3/AAAEAAAAAAAAAP7/AAAEAAAAAAABAPr/AAAEAAAAAAABAPv/AAAEAAAAAAABAPz/AAAEAAAAAAABAP3/AAAEAAAAAAABAP7/AAAEAAAAAAACAPv/AAAEAAAAAAACAPz/AAAEAAAAAAACAP3/AAAEAAAAAAACAP7/AAAEAAAAAAADAPz/AAAEAAAAAAADAP3/AAAEAAAAAAADAP7/AAAEAAAAAAAEAPz/AAAEAAAAAAAEAP3/AAAEAAAAAAD6//z/AAAEAAAAAAD6//3/AAAEAAAAAAD6//7/AAAEAAAAAAD6////AAAEAAAAAAD7//v/AAAEAAAAAAD7//z/AAAEAAAAAAD7//3/AAAEAAAAAAD7//7/AAAEAAAAAAD7////AAAEAAAAAAD8//r/AAAEAAAAAAD8//v/AAAEAAAAAAD8//z/AAAEAAAAAAD8//3/AAAEAAAAAAD8//7/AAAEAAAAAAD9//r/AAAEAAAAAAD9//v/AAAEAAAAAAD9//z/AAAEAAAAAAD9//3/AAAEAAAAAAD9//7/AAAEAAAAAAD+//r/AAAEAAAAAAD9////AAAIAAAAAAD6/wAAAAAEAAAAAAD5////AAAEAAAAAAD5//z/AAAEAAAAAAD5//3/AAAEAAAAAAD5//7/AAAEAAAAAAD6//v/AAAEAAAAAAA=")
+tile_set = ExtResource("1_w6u14")
+
+[node name="Layer_Z16" type="TileMapLayer" parent="I_2_Z5"]
+z_index = 21
+y_sort_enabled = true
+position = Vector2(0, -168)
+tile_map_data = PackedByteArray("AAD8////AAAQAAAAAAD7/wAAAAAFAAAAAAD8/wAAAAAFAAAAAAD6//7/AAAOAAAAAAD6////AAAFAAAAAAD7//z/AAANAAAAAAD7//3/AAAMAAAAAAD7//7/AAAMAAAAAAD8//7/AAAMAAAAAAD9//7/AAAFAAAAAAD+//7/AAAFAAAAAAD8//z/AAAMAAAAAAD8//3/AAAMAAAAAAD9//z/AAAMAAAAAAD8//v/AAANAAAAAAD9//v/AAAPAAAAAAD9//3/AAAMAAAAAAD+//3/AAAFAAAAAAD+//v/AAAPAAAAAAD+//z/AAAMAAAAAAD7//v/AAAEAAAAAAD8//r/AAAEAAAAAAD9//r/AAAEAAAAAAD+//r/AAAEAAAAAAD///r/AAAFAAAAAAAAAPr/AAAFAAAAAAABAPr/AAAFAAAAAAD///v/AAAFAAAAAAAAAPv/AAAFAAAAAAABAPv/AAAFAAAAAAACAPv/AAAFAAAAAAAAAPz/AAAEAAAAAAAAAP3/AAAEAAAAAAABAPz/AAAEAAAAAAABAP3/AAAEAAAAAAACAPz/AAAFAAAAAAACAP3/AAAFAAAAAAADAPz/AAAFAAAAAAADAP3/AAAFAAAAAAAEAPz/AAAFAAAAAAAEAP3/AAAFAAAAAAD///z/AAAFAAAAAAD///3/AAAFAAAAAAD///7/AAAFAAAAAAAAAP7/AAAFAAAAAAAAAP//AAAFAAAAAAABAP7/AAAFAAAAAAABAP//AAAFAAAAAAACAP7/AAAFAAAAAAACAP//AAAFAAAAAAADAP7/AAAFAAAAAAD5//3/AAAEAAAAAAD5//7/AAAEAAAAAAD5//z/AAAEAAAAAAD6//v/AAAEAAAAAAD7//r/AAAEAAAAAAD6/wAAAAAFAAAAAAD5////AAAFAAAAAAD6//z/AAAEAAAAAAD6//3/AAAJAAAAAAD7////AAAOAAAAAAA=")
+tile_set = ExtResource("1_w6u14")
+
+[node name="Layer_1_Z16" type="TileMapLayer" parent="I_2_Z5"]
+visible = false
+z_index = 21
+position = Vector2(0, -168)
+tile_map_data = PackedByteArray("AAAAAPz/AAAVAAAAAAAAAPn/AAAWAAAAAAA=")
+tile_set = ExtResource("1_w6u14")
+
+[node name="Layer_Z17" type="TileMapLayer" parent="I_2_Z5"]
+z_index = 22
+y_sort_enabled = true
+position = Vector2(0, -176)
+tile_map_data = PackedByteArray("AAD6//v/AAAEAAAAAAD6//z/AAAEAAAAAAD7//v/AAAFAAAAAAD7//r/AAAEAAAAAAD8//r/AAAEAAAAAAD9//r/AAAEAAAAAAD5//z/AAAEAAAAAAD5//3/AAAEAAAAAAD5//7/AAAFAAAAAAD+//r/AAAFAAAAAAABAPr/AAAWAAAAAAABAP3/AAAVAAAAAAA=")
+tile_set = ExtResource("1_w6u14")
+
+[node name="Layer_Z18" type="TileMapLayer" parent="I_2_Z5"]
+z_index = 23
+y_sort_enabled = true
+position = Vector2(0, -184)
+tile_map_data = PackedByteArray("AAD5//z/AAAFAAAAAAD5//3/AAAFAAAAAAD6//v/AAAFAAAAAAD6//z/AAAFAAAAAAD7//r/AAAFAAAAAAD8//r/AAAFAAAAAAD9//r/AAAFAAAAAAA=")
+tile_set = ExtResource("1_w6u14")
+
+[node name="Layer_Z19" type="TileMapLayer" parent="I_2_Z5"]
+z_index = 24
+y_sort_enabled = true
+position = Vector2(0, -192)
+tile_set = ExtResource("1_w6u14")
+
+[node name="Layer_Z20" type="TileMapLayer" parent="I_2_Z5"]
+z_index = 25
+y_sort_enabled = true
+position = Vector2(0, -200)
+tile_set = ExtResource("1_w6u14")
+
+[node name="I_3_Z5" type="TileMapLayer" parent="."]
+z_index = 5
+y_sort_enabled = true
+position = Vector2(0, -40)
+enabled = false
+tile_set = ExtResource("1_w6u14")
+script = ExtResource("1_guyr8")
+tile_map_layer_offset = Vector2i(0, 8)
+metadata/_custom_type_script = "uid://vcr0djhdtomv"
+
+[node name="Layer_Z17" type="TileMapLayer" parent="I_3_Z5"]
+z_index = 22
+y_sort_enabled = true
+position = Vector2(0, -176)
+tile_map_data = PackedByteArray("AAD6//3/AAAIAAAAAAA=")
+tile_set = ExtResource("1_w6u14")
+
+[node name="Layer_Z18" type="TileMapLayer" parent="I_3_Z5"]
+z_index = 23
+y_sort_enabled = true
+position = Vector2(0, -184)
+tile_map_data = PackedByteArray("AAD6//3/AAAIAAAAAAA=")
+tile_set = ExtResource("1_w6u14")
+
+[node name="Layer_Z19" type="TileMapLayer" parent="I_3_Z5"]
+z_index = 24
+y_sort_enabled = true
+position = Vector2(0, -192)
+tile_map_data = PackedByteArray("AAD6//3/AAAIAAAAAAA=")
+tile_set = ExtResource("1_w6u14")
+
+[node name="Layer_Z20" type="TileMapLayer" parent="I_3_Z5"]
+z_index = 25
+y_sort_enabled = true
+position = Vector2(0, -200)
+tile_map_data = PackedByteArray("AAD6//3/AAAIAAAAAAA=")
+tile_set = ExtResource("1_w6u14")
+
+[node name="Layer_Z21" type="TileMapLayer" parent="I_3_Z5"]
+z_index = 26
+y_sort_enabled = true
+position = Vector2(0, -208)
+tile_map_data = PackedByteArray("AAD6//3/AAAIAAAAAAA=")
+tile_set = ExtResource("1_w6u14")
+
+[node name="Layer_Z22" type="TileMapLayer" parent="I_3_Z5"]
+z_index = 27
+y_sort_enabled = true
+position = Vector2(0, -216)
+tile_map_data = PackedByteArray("AAD6//3/AAAIAAAAAAA=")
+tile_set = ExtResource("1_w6u14")
+
+[node name="Layer_Z23" type="TileMapLayer" parent="I_3_Z5"]
+z_index = 28
+y_sort_enabled = true
+position = Vector2(0, -224)
+tile_map_data = PackedByteArray("AAD6//3/AAAIAAAAAAA=")
+tile_set = ExtResource("1_w6u14")
+
+[node name="Layer_Z24" type="TileMapLayer" parent="I_3_Z5"]
+z_index = 29
+y_sort_enabled = true
+position = Vector2(0, -232)
+tile_map_data = PackedByteArray("AAD6//3/AAAIAAAAAAA=")
+tile_set = ExtResource("1_w6u14")
+
+[node name="Layer_Z25" type="TileMapLayer" parent="I_3_Z5"]
+z_index = 30
+y_sort_enabled = true
+position = Vector2(0, -240)
+tile_map_data = PackedByteArray("AAD5//3/AAABAAAAAAD5//7/AAACAAAAAAD5//z/AAACAAAAAAD6//3/AAAIAAAAAAA=")
+tile_set = ExtResource("1_w6u14")
+
+[node name="Layer_Z26" type="TileMapLayer" parent="I_3_Z5"]
+z_index = 31
+y_sort_enabled = true
+position = Vector2(0, -248)
+tile_map_data = PackedByteArray("AAD5//3/AAALAAAAAAD4//3/AAABAAAAAAD5//z/AAAFAAAAAAD4//z/AAACAAAAAAD4//7/AAACAAAAAAD5//7/AAAFAAAAAAA=")
+tile_set = ExtResource("1_w6u14")
+
+[node name="Layer_Z27" type="TileMapLayer" parent="I_3_Z5"]
+z_index = 32
+y_sort_enabled = true
+position = Vector2(0, -256)
+tile_map_data = PackedByteArray("AAD4//z/AAAEAAAAAAD3//z/AAACAAAAAAD3//3/AAACAAAAAAD4//3/AAABAAAAAAD3//7/AAACAAAAAAD4//7/AAAEAAAAAAD5//3/AAAIAAAAAAA=")
+tile_set = ExtResource("1_w6u14")
+
+[node name="Layer_Z28" type="TileMapLayer" parent="I_3_Z5"]
+z_index = 33
+y_sort_enabled = true
+position = Vector2(0, -264)
+tile_map_data = PackedByteArray("AAD4//3/AAAHAAAAAAD4//z/AAAEAAAAAAD3//3/AAAEAAAAAAD3//7/AAAFAAAAAAD3//z/AAAEAAAAAAD4//7/AAAFAAAAAAA=")
+tile_set = ExtResource("1_w6u14")
+
+[node name="Layer_Z29" type="TileMapLayer" parent="I_3_Z5"]
+z_index = 34
+y_sort_enabled = true
+position = Vector2(0, -272)
+tile_map_data = PackedByteArray("AAD3//3/AAAFAAAAAAD3//z/AAAEAAAAAAD4//z/AAAFAAAAAAA=")
+tile_set = ExtResource("1_w6u14")
+
+[node name="Layer_Z30" type="TileMapLayer" parent="I_3_Z5"]
+z_index = 35
+y_sort_enabled = true
+position = Vector2(0, -280)
+tile_map_data = PackedByteArray("AAD3//z/AAAFAAAAAAA=")
+tile_set = ExtResource("1_w6u14")

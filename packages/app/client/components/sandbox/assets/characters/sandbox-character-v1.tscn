@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://baowypgrgvipn"]
+
+[ext_resource type="Texture2D" uid="uid://cptl5wtjk5qh6" path="res://components/sandbox/assets/characters/sandbox-character-v1-diffuse.png" id="1_x0e54"]
+[ext_resource type="Texture2D" uid="uid://dtkoh651ird5w" path="res://components/sandbox/assets/characters/sandbox-character-v1-normal.png" id="2_tbt85"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_x0e54"]
+diffuse_texture = ExtResource("1_x0e54")
+normal_texture = ExtResource("2_tbt85")
+
+[node name="SandboxCharacterV1" type="Node2D"]
+
+[node name="SandboxCharacterV1" type="Sprite2D" parent="."]
+position = Vector2(0, -20.000004)
+scale = Vector2(0.025897816, 0.025897816)
+texture = SubResource("CanvasTexture_x0e54")

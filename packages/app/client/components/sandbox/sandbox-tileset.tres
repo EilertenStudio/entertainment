@@ -18,6 +18,8 @@ texture_region_size = Vector2i(32, 32)
 2:0/next_alternative_id = 2
 2:0/0 = 0
 2:0/0/texture_origin = Vector2i(0, 8)
+3:0/0 = 0
+3:0/0/texture_origin = Vector2i(0, 8)
 
 [sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_dydqe"]
 polygon = PackedVector2Array(-16, 0, 0, 8, 16, 0, 0, -8)

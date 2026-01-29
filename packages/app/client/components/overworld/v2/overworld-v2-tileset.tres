@@ -1,0 +1,69 @@
+[gd_resource type="TileSet" load_steps=9 format=3 uid="uid://7alp5hbuwxdw"]
+
+[ext_resource type="Texture2D" uid="uid://ccndu8tu63mab" path="res://components/overworld/v2/overworld-v2-tile.png" id="1_6omt7"]
+[ext_resource type="Texture2D" uid="uid://2c0nqao1xtqs" path="res://components/overworld/v2/overworld-v2-tilesheet-blocks.png" id="2_wh56d"]
+[ext_resource type="Texture2D" uid="uid://1ddkvtefmq44" path="res://components/overworld/v2/overworld-v2-tilesheet-water.png" id="3_nqjyb"]
+[ext_resource type="Texture2D" uid="uid://ddf4i3kpyec41" path="res://components/overworld/v2/overworld-v2-tilesheet-decoration.png" id="4_1eco7"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gvxy3"]
+texture = ExtResource("1_6omt7")
+texture_region_size = Vector2i(32, 32)
+0:0/animation_speed = 3.0
+0:0/animation_frame_0/duration = 1.0
+0:0/animation_frame_1/duration = 1.0
+0:0/animation_frame_2/duration = 1.0
+0:0/animation_frame_3/duration = 1.0
+0:0/animation_frame_4/duration = 1.0
+0:0/animation_frame_5/duration = 1.0
+0:0/animation_frame_6/duration = 1.0
+0:0/animation_frame_7/duration = 1.0
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0i6gg"]
+texture = ExtResource("2_wh56d")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:1/0 = 0
+0:2/0 = 0
+0:3/0 = 0
+2:1/size_in_atlas = Vector2i(2, 2)
+2:1/0 = 0
+1:1/size_in_atlas = Vector2i(1, 2)
+1:1/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6r2wo"]
+texture = ExtResource("3_nqjyb")
+texture_region_size = Vector2i(32, 32)
+0:1/0 = 0
+0:2/0 = 0
+0:3/0 = 0
+0:0/0 = 0
+0:4/animation_speed = 3.0
+0:4/animation_frame_0/duration = 1.0
+0:4/animation_frame_1/duration = 1.0
+0:4/animation_frame_2/duration = 1.0
+0:4/animation_frame_3/duration = 1.0
+0:4/animation_frame_4/duration = 1.0
+0:4/animation_frame_5/duration = 1.0
+0:4/animation_frame_6/duration = 1.0
+0:4/animation_frame_7/duration = 1.0
+0:4/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_0tsow"]
+texture = ExtResource("4_1eco7")
+texture_region_size = Vector2i(32, 32)
+0:0/animation_mode = 1
+0:0/animation_frame_0/duration = 1.0
+0:0/animation_frame_1/duration = 1.0
+0:0/animation_frame_2/duration = 1.0
+0:0/animation_frame_3/duration = 1.0
+0:0/0 = 0
+
+[resource]
+tile_shape = 1
+tile_layout = 5
+tile_size = Vector2i(32, 16)
+sources/10 = SubResource("TileSetAtlasSource_0i6gg")
+sources/11 = SubResource("TileSetAtlasSource_6r2wo")
+sources/12 = SubResource("TileSetAtlasSource_0tsow")
+sources/0 = SubResource("TileSetAtlasSource_gvxy3")

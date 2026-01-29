@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://dn6dif3cn5jea"]
+
+[ext_resource type="Shader" uid="uid://d0mtfkrlr4mny" path="res://components/overworld/v7/shaders/overworld-v7-shader.gdshader" id="1_qm5uj"]
+[ext_resource type="Texture2D" uid="uid://dck47ej74dvg3" path="res://components/overworld/v7/assets/materials/overworld-v7-material-grid.png" id="2_hsms4"]
+
+[resource]
+shader = ExtResource("1_qm5uj")
+shader_parameter/material_grid = ExtResource("2_hsms4")
+shader_parameter/material_grid_row_number = 46
+shader_parameter/material_grid_column_number = 4

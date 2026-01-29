@@ -1,0 +1,10 @@
+[gd_resource type="CanvasTexture" load_steps=4 format=3 uid="uid://dnjs3finudnhe"]
+
+[ext_resource type="Texture2D" uid="uid://b3mc2h04pjk80" path="res://components/overworld/v6/assets/tileset/overworld-v6-tilesheet-sandbox-diffuse.png" id="1_epjxr"]
+[ext_resource type="Texture2D" uid="uid://be7h6aewrb4f4" path="res://components/overworld/v6/assets/tileset/overworld-v6-tilesheet-sandbox-normal.png" id="2_jxr62"]
+[ext_resource type="Texture2D" uid="uid://bdwkcu53rimct" path="res://components/overworld/v6/assets/tileset/overworld-v6-tilesheet-sandbox-mmap.png" id="3_jxr62"]
+
+[resource]
+diffuse_texture = ExtResource("1_epjxr")
+normal_texture = ExtResource("2_jxr62")
+specular_texture = ExtResource("3_jxr62")

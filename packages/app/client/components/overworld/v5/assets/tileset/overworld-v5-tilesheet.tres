@@ -1,0 +1,8 @@
+[gd_resource type="CanvasTexture" load_steps=3 format=3 uid="uid://dnjs3finudnhe"]
+
+[ext_resource type="Texture2D" uid="uid://dqvsajykxd058" path="res://components/overworld/v5/assets/tileset/overworld-v5-tilesheet-diffuse.png" id="1_4bl6t"]
+[ext_resource type="Texture2D" uid="uid://bgvef3ii4fpep" path="res://components/overworld/v5/assets/tileset/overworld-v5-tilesheet-normal.png" id="2_nk6jm"]
+
+[resource]
+diffuse_texture = ExtResource("1_4bl6t")
+normal_texture = ExtResource("2_nk6jm")

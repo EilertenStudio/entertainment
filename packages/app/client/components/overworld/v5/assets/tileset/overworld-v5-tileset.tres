@@ -1,0 +1,59 @@
+[gd_resource type="TileSet" load_steps=12 format=3 uid="uid://d27fia7smmmfc"]
+
+[ext_resource type="Texture2D" uid="uid://ctvxv5a3qdath" path="res://components/overworld/v5/assets/tileset/overworld-v5-tilesheet-blender-diffuse.png" id="2_eqqqr"]
+[ext_resource type="Texture2D" uid="uid://dnjs3finudnhe" path="res://components/overworld/v5/assets/tileset/overworld-v5-tilesheet.tres" id="2_fqbdf"]
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_aqdjn"]
+polygon = PackedVector2Array(-16, 8, 0, 16, 16, 8, 16, 0, 0, -8, -16, 0)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_fqbdf"]
+polygon = PackedVector2Array(-16, 8, 0, 16, 16, 8, 16, 0, 0, -8, -16, 0)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_eqqqr"]
+polygon = PackedVector2Array(-16, 0, -16, 8, 0, 16, 16, 8, 16, 0, 0, -8)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_142l5"]
+polygon = PackedVector2Array(-16, 0, -16, 8, 0, 16, 16, 8, 16, 0, 0, -8)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_r512y"]
+polygon = PackedVector2Array(-16, 0, 0, -8, 16, 0, 16, 8, 0, 16, -16, 8)
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_o637e"]
+polygon = PackedVector2Array(-16, 0, 0, -8, 16, 0, 16, 8, 0, 16, -16, 8)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_aqdjn"]
+resource_name = "pixel_composer"
+texture = ExtResource("2_fqbdf")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_aqdjn")
+1:0/0 = 0
+1:0/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_fqbdf")
+2:0/0 = 0
+2:0/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_eqqqr")
+3:0/0 = 0
+4:0/0 = 0
+4:0/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_142l5")
+5:0/0 = 0
+5:0/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_r512y")
+6:0/0 = 0
+6:0/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_o637e")
+7:0/0 = 0
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_kjxik"]
+polygon = PackedVector2Array(-16, 0, -16, 8, 0, 16, 16, 8, 16, 0, 0, -8)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_142l5"]
+resource_name = "blender"
+texture = ExtResource("2_eqqqr")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/occlusion_layer_0/polygon_0/polygon = SubResource("OccluderPolygon2D_kjxik")
+
+[resource]
+tile_shape = 1
+tile_layout = 5
+tile_size = Vector2i(32, 16)
+occlusion_layer_0/light_mask = 1
+sources/0 = SubResource("TileSetAtlasSource_aqdjn")
+sources/1 = SubResource("TileSetAtlasSource_142l5")

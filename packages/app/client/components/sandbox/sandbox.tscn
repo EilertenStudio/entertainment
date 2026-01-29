@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=4 uid="uid://c0da8tnw3bidx"]
+[gd_scene load_steps=10 format=4 uid="uid://c0da8tnw3bidx"]
 
 [ext_resource type="TileSet" uid="uid://dkgswdmqgivpj" path="res://components/sandbox/sandbox-tileset.tres" id="1_32bdh"]
 [ext_resource type="Script" uid="uid://b1vy2x4kqys62" path="res://components/sandbox/sandbox.gd" id="2_myiat"]
 [ext_resource type="PackedScene" uid="uid://bfay88o4jscva" path="res://components/sandbox/sandbox-light.tscn" id="3_myiat"]
+[ext_resource type="PackedScene" uid="uid://baowypgrgvipn" path="res://components/sandbox/assets/characters/sandbox-character-v1.tscn" id="4_gss4w"]
 
 [sub_resource type="Animation" id="Animation_gss4w"]
 length = 0.001
@@ -114,3 +115,8 @@ height = 21.0
 
 [node name="SandboxLight" parent="Obstacles/PointLight2D" instance=ExtResource("3_myiat")]
 scale = Vector2(0.24883094, 0.24883094)
+
+[node name="Characters" type="Node2D" parent="."]
+
+[node name="SandboxCharacterV1" parent="Characters" instance=ExtResource("4_gss4w")]
+position = Vector2(43, 85)

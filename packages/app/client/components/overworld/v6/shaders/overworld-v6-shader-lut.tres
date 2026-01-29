@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://cqxiqix5x2iew"]
+
+[ext_resource type="Shader" uid="uid://m2xeljgs23o2" path="res://components/overworld/v6/shaders/overworld-v6-shader-lut.gdshader" id="1_ydjui"]
+[ext_resource type="Texture2D" uid="uid://q3jg466sdgqt" path="res://components/overworld/v6/assets/tileset/overworld-v6-tileset-mgrid.png" id="2_c1u7h"]
+
+[resource]
+shader = ExtResource("1_ydjui")
+shader_parameter/mgrid = ExtResource("2_c1u7h")
+shader_parameter/mgrid_row_number = 46
+shader_parameter/mgrid_column_number = 3
